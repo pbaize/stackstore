@@ -10,7 +10,7 @@ var minifyCSS = require('gulp-minify-css')
 var ngAnnotate = require('gulp-ng-annotate')
 var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps')
-// var eslint = require('gulp-eslint')
+var eslint = require('gulp-eslint')
 var mocha = require('gulp-mocha')
 var karma = require('karma').server
 var istanbul = require('gulp-istanbul')
@@ -33,7 +33,7 @@ gulp.task('lintJS', function () {
     .pipe(eslint.format())
     .pipe(eslint.failOnError())
 })
-gulp.task('buildJS', function () {
+gulp.task('buildJS', ['lintJS'], function () {
   return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
