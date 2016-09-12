@@ -24,15 +24,15 @@ gulp.task('reload', function () {
 gulp.task('reloadCSS', function () {
   return gulp.src('./public/style.css').pipe(livereload())
 })
-// // gulp.task('lintJS', function () {
-// //   return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
-// //     .pipe(plumber({
-// //       errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
-// //     }))
-// //     .pipe(eslint())
-// //     .pipe(eslint.format())
-// //     .pipe(eslint.failOnError())
-// // })
+gulp.task('lintJS', function () {
+  return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+    .pipe(plumber({
+      errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
+    }))
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+})
 gulp.task('buildJS', function () {
   return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
     .pipe(plumber())
