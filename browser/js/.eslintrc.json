@@ -4,6 +4,7 @@
   },
   "globals": {
     "app": true,
-    "_": true
+    "_": true,
+    "angular": true
   }
 }
