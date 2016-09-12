@@ -16,6 +16,6 @@ module.exports = {
     clientSecret: 'INSERT_GOOGLE_CLIENT_SECRET_HERE',
     callbackURL: 'INSERT_GOOGLE_CALLBACK_HERE'
   },
-  LOGGING: true,
+  LOGGING: false,
   NATIVE: true
 }
