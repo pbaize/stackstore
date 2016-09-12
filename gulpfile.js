@@ -1,4 +1,3 @@
-// All used modules.
 var gulp = require('gulp')
 var babel = require('gulp-babel')
 var runSeq = require('run-sequence')
@@ -11,35 +10,30 @@ var minifyCSS = require('gulp-minify-css')
 var ngAnnotate = require('gulp-ng-annotate')
 var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps')
-var eslint = require('gulp-eslint')
+// var eslint = require('gulp-eslint')
 var mocha = require('gulp-mocha')
 var karma = require('karma').server
 var istanbul = require('gulp-istanbul')
 var notify = require('gulp-notify')
-
 // Development tasks
 // --------------------------------------------------------------
-
 // Live reload business.
 gulp.task('reload', function () {
   livereload.reload()
 })
-
 gulp.task('reloadCSS', function () {
   return gulp.src('./public/style.css').pipe(livereload())
 })
-
-gulp.task('lintJS', function () {
-  return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
-    .pipe(plumber({
-      errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
-    }))
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failOnError())
-})
-
-gulp.task('buildJS', ['lintJS'], function () {
+// // gulp.task('lintJS', function () {
+// //   return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+// //     .pipe(plumber({
+// //       errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
+// //     }))
+// //     .pipe(eslint())
+// //     .pipe(eslint.format())
+// //     .pipe(eslint.failOnError())
+// // })
+gulp.task('buildJS', function () {
   return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
@@ -50,7 +44,6 @@ gulp.task('buildJS', ['lintJS'], function () {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public'))
 })
-
 gulp.task('testServerJS', function () {
   require('babel-register')
   // testing environment variable
@@ -59,7 +52,6 @@ gulp.task('testServerJS', function () {
     read: false
   }).pipe(mocha({ reporter: 'spec' }))
 })
-
 gulp.task('testServerJSWithCoverage', function (done) {
   // testing environment variable
   process.env.NODE_ENV = 'testing'
@@ -78,7 +70,6 @@ gulp.task('testServerJSWithCoverage', function (done) {
         .on('end', done)
     })
 })
-
 gulp.task('testBrowserJS', function (done) {
   // testing environment variable
   process.env.NODE_ENV = 'testing'
@@ -87,11 +78,9 @@ gulp.task('testBrowserJS', function (done) {
     singleRun: true
   }, done)
 })
-
 gulp.task('buildCSS', function () {
   var sassCompilation = sass()
   sassCompilation.on('error', console.error.bind(console))
-
   return gulp.src('./browser/scss/main.scss')
     .pipe(plumber({
       errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
@@ -102,10 +91,8 @@ gulp.task('buildCSS', function () {
     .pipe(rename('style.css'))
     .pipe(gulp.dest('./public'))
 })
-
 // Production tasks
 // --------------------------------------------------------------
-
 gulp.task('buildCSSProduction', function () {
   return gulp.src('./browser/scss/main.scss')
     .pipe(sass())
@@ -113,7 +100,6 @@ gulp.task('buildCSSProduction', function () {
     .pipe(minifyCSS())
     .pipe(gulp.dest('./public'))
 })
-
 gulp.task('buildJSProduction', function () {
   return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
     .pipe(concat('main.js'))
@@ -124,12 +110,9 @@ gulp.task('buildJSProduction', function () {
     .pipe(uglify())
     .pipe(gulp.dest('./public'))
 })
-
 gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction'])
-
 // Composed tasks
 // --------------------------------------------------------------
-
 gulp.task('build', function () {
   if (process.env.NODE_ENV === 'production') {
     runSeq(['buildJSProduction', 'buildCSSProduction'])
@@ -137,30 +120,22 @@ gulp.task('build', function () {
     runSeq(['buildJS', 'buildCSS'])
   }
 })
-
 gulp.task('default', function () {
   gulp.start('build')
-
   // Run when anything inside of browser/js changes.
   gulp.watch('browser/js/**', function () {
     runSeq('buildJS', 'reload')
   })
-
   // Run when anything inside of browser/scss changes.
   gulp.watch('browser/scss/**', function () {
     runSeq('buildCSS', 'reloadCSS')
   })
-
   gulp.watch('server/**/*.js', ['lintJS'])
-
   // Reload when a template (.html) file changes.
   gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload'])
-
   // Run server tests when a server file or server test file changes.
   gulp.watch(['tests/server/**/*.js', 'server/app/**/*.js'], ['testServerJS'])
-
   // Run browser testing when a browser test file changes.
   gulp.watch('tests/browser/**/*', ['testBrowserJS'])
-
   livereload.listen()
 })
