@@ -11,8 +11,8 @@ var Order = require('./models/order')
 // if we had more models, we could associate them in this file
 // e.g. User.hasMany(Reports)
 
-Product.belongsToMany(Cart, {through: 'cart_products'})
-Product.belongsToMany(Order, {through: 'order_products'})
+Cart.hasMany(Product)
+Order.hasMany(Product)
 User.hasOne(Cart)
 Cart.belongsTo(User)
-Order.belongsToMany(User, {through: 'user_orders'})
+User.hasMany(Order)
