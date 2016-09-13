@@ -1,17 +1,25 @@
 <nav class="navbar navbar-static-top">
     <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
+        <div class="row topnav">
+            <fullstack-logo class="pull-left"></fullstack-logo>
+            <div class="navgroup pull-right">
+                <button ng-show="!user" ui-sref="login" class="btn btn-outline-inverted login-button">Login</button>
+                <div ng-show="user" class="welcome">
+                    <span>Welcome, {{ user.email }}!</span>
+                    <a ng-click="logout()">Logout</a>
+                </div>
+                <button class="btn btn-primary" id="cart">cart</button>
+            </div>
+            <img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png">
         </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+        <div class = "lowernav">
+            <ul class="nav">
+                <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+                  <div>
+                    <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+                   </div> 
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
