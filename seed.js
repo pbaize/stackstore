@@ -105,6 +105,9 @@ var seedCarts = function () {
   return Promise.all(creatingCarts)
 }
 
+var someProducts = []
+var someCarts = []
+
 db.sync({ force: true })
   .then(function () {
     return seedUsers()
@@ -113,7 +116,8 @@ db.sync({ force: true })
     console.log(chalk.yellow('Users seeded...'))
     return seedProducts()
   })
-  .then(function () {
+  .then(function (myProducts) {
+    someProducts = myProducts
     console.log(chalk.yellow('Products seeded...'))
     return seedOrders()
   })
@@ -121,9 +125,18 @@ db.sync({ force: true })
     console.log(chalk.yellow('Orders seeded...'))
     return seedCarts()
   })
-  .then(function () {
+  .then(function (myCarts) {
+    someCarts = myCarts
     console.log(chalk.yellow('Carts seeded...'))
-    console.log(chalk.green('Seed successful!'))
+    return someCarts[0].addProducts(someProducts)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish association.'))
+    return someCarts[1].addProducts(someProducts)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish association 2.'))
+    console.log(chalk.green('Seed successful.'))
     process.exit(0)
   })
   .catch(function (err) {
