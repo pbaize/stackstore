@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
   })
 })
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, CreateUserFactory) {
   $scope.login = {}
   $scope.error = null
 
@@ -17,6 +17,21 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
       $state.go('home')
     }).catch(function () {
       $scope.error = 'Invalid login credentials.'
+    })
+  }
+
+  $scope.createLogin = function (loginInfo) {
+    $scope.error = null
+    let tempLogin = loginInfo
+
+    CreateUserFactory.createUser(loginInfo).then(function () {
+      AuthService.login(tempLogin).then(function () {
+        $state.go('home')
+      }).catch(function () {
+        $scope.error = 'Invalid login credentials.'
+      })
+    }).catch(function () {
+      $scope.error = 'Could not create account.'
     })
   }
 })
