@@ -148,10 +148,10 @@ db.sync({ force: true })
   })
   .then(function () {
     console.log(chalk.red('Attempted to establish orders association 2.'))
-    return someUsers[0].addOrders(someOrders)
+    return someOrders[0].setUser(someUsers[0])
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish user-orders association.'))
+    console.log(chalk.red('Attempted to establish user-order association.'))
     return someUsers[1].setCart(someCarts[0])
   })
   .then(function () {
