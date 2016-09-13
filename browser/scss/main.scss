@@ -4,8 +4,12 @@
 
 body {
   background: #fdfdfd;
+  height: 100%;
 }
 
+// body div {
+// 	border: 1px solid red
+// }
 @mixin clearfix {
   &:after {
     content: "";
@@ -15,8 +19,10 @@ body {
 }
 
 #main {
-  padding-top: 60px;
+  // padding-top: 60px;
+  overflow: hidden;
   margin: 0 auto;
+  width: 100%
 }
 
 @import 'directives/main';
