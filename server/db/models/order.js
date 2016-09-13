@@ -1,0 +1,22 @@
+'use strict'
+var Sequelize = require('sequelize')
+
+var db = require('../_db')
+
+// ORDER
+/*
+As agreed:
+  hasManyProducts
+  belongsToUser
+  STRING || ENUM :
+    pre-purchase, purchased, preparing-to-ship, shipped, delivered, closed
+
+  #Still interesting how carts and this will interact.
+*/
+
+module.exports = db.define('order', {
+  status: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+})
