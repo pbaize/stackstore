@@ -1,7 +1,8 @@
 /* global app */
 app.factory('ProductsFactory', function ($http, $log, $q) {
-  let cachProduct = []
+  let cachProducts = []
   let ProductsFactory = {}
+  let oneProduct
 
   ProductsFactory.fetchAll = function () {
     return $http.get('/api/products')
@@ -12,18 +13,26 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
   }
 
   ProductsFactory.fetchById = function (id) {
-    if (cachProduct[id] === undefined) {
+    let usingCach = false
+    cachProducts.forEach((product) => {
+      if (product.id === id) {
+        oneProduct = product
+        usingCach = true
+      }
+    })
+
+    if (usingCach === false) {
       return $http.get('/api/products/' + id)
         .then(function (response) {
           console.log('loading new product')
-          let oneProduct = response.data
-          cachProduct[id] = oneProduct // put the result to cach
+          oneProduct = response.data
+          cachProducts.push(oneProduct) // put the result to cach
           return oneProduct
         }).catch($log.error)
     } else {
       console.log('using cach result')
       let deferred = $q.defer()
-      deferred.resolve(cachProduct[id])
+      deferred.resolve(oneProduct)
       return deferred.promise
     }
   }
