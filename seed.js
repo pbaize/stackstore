@@ -107,12 +107,15 @@ var seedCarts = function () {
 
 var someProducts = []
 var someCarts = []
+var someOrders = []
+var someUsers = []
 
 db.sync({ force: true })
   .then(function () {
     return seedUsers()
   })
-  .then(function () {
+  .then(function (myUsers) {
+    someUsers = myUsers
     console.log(chalk.yellow('Users seeded...'))
     return seedProducts()
   })
@@ -121,7 +124,8 @@ db.sync({ force: true })
     console.log(chalk.yellow('Products seeded...'))
     return seedOrders()
   })
-  .then(function () {
+  .then(function (myOrders) {
+    someOrders = myOrders
     console.log(chalk.yellow('Orders seeded...'))
     return seedCarts()
   })
@@ -131,11 +135,27 @@ db.sync({ force: true })
     return someCarts[0].addProducts(someProducts)
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish association.'))
+    console.log(chalk.red('Attempted to establish cart association 1.'))
     return someCarts[1].addProducts(someProducts)
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish association 2.'))
+    console.log(chalk.red('Attempted to establish cart association 2.'))
+    return someOrders[0].addProducts(someProducts)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish orders association 1.'))
+    return someOrders[1].addProducts(someProducts)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish orders association 2.'))
+    return someUsers[0].addOrders(someOrders)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-orders association.'))
+    return someUsers[1].setCart(someCarts[0])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-cart association.'))
     console.log(chalk.green('Seed successful.'))
     process.exit(0)
   })
