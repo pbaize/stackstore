@@ -5,7 +5,7 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
   let oneProduct
 
   ProductsFactory.fetchAll = function () {
-    return $http.get('/api/products')
+    return $http.get('/api/products', { config: { category: 'Kitchen' } })
       .then(function (response) {
         let allProducts = response.data
         return allProducts
