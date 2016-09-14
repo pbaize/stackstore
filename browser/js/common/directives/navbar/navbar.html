@@ -1,3 +1,4 @@
+<cart></cart>
 <nav class="navbar navbar-static-top">
     <div class="container">
         <div class="row topnav">
@@ -8,7 +9,7 @@
                     <span>Welcome, {{ user.email }}!</span>
                     <a ng-click="logout()">Logout</a>
                 </div>
-                <button class="btn btn-primary" id="cart">cart</button>
+                <button class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
             </div>
             <img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png">
         </div>
