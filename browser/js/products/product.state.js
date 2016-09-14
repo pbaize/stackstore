@@ -1,6 +1,7 @@
 'use strict'
+
 app.config(function ($stateProvider) {
-  $stateProvider.state('allProducts', {
+  $stateProvider.state('viewProducts', {
     url: '/products',
     templateUrl: '/js/products/products.html',
     controller: 'ProductsCtrl',
@@ -11,6 +12,7 @@ app.config(function ($stateProvider) {
     }
   })
 })
+
 app.controller('ProductsCtrl', function ($scope, AuthService, $state, ProductsFactory, allProducts) {
   $scope.products = allProducts
 })
