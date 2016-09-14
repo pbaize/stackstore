@@ -1,19 +1,8 @@
 /*
 
-This seed file is only a placeholder. It should be expanded and altered
-to fit the development of your application.
-
-It uses the same file the server uses to establish
-the database connection:
---- server/db/index.js
-
-The name of the database used is set in your environment files:
---- server/env/*
-
-This seed file has a safety check to see if you already have users
-in the database. If you are developing multiple applications with the
-fsg scaffolding, keep in mind that fsg always uses the same database
-name in the environment files.
+Eliot's seed file. Should create all associations as well
+as make 2 of each type of thing. Some may be reused for
+laziness sake.
 
 */
 
@@ -23,6 +12,7 @@ var User = db.model('user')
 var Product = db.model('product')
 var Cart = db.model('cart')
 var Order = db.model('order')
+var Review = db.model('review')
 var Promise = require('sequelize').Promise
 
 var seedUsers = function () {
@@ -71,6 +61,29 @@ var seedProducts = function () {
   return Promise.all(creatingProducts)
 }
 
+var seedReviews = function () {
+  var reviews = [
+    {
+      title: 'A Truly SJW Tote',
+      author: 'Pierre',
+      comment: 'This tote single handedly reminds people of what a warrior for all social issues I am. From the right to wear beanies, to the right to grow my own coffee.  Corporate pigs wont tell me otherwise!',
+      score: 5
+    },
+    {
+      title: 'Garbage',
+      author: 'Eliot',
+      comment: 'I got ridiculed every single day for wearing this, then to top it off, it spontaneously combusted',
+      score: 0.1
+    }
+  ]
+
+  var creatingReviews = reviews.map(function (reviewObj) {
+    return Review.create(reviewObj)
+  })
+
+  return Promise.all(creatingReviews)
+}
+
 var seedOrders = function () {
   var orders = [
     {
@@ -109,6 +122,7 @@ var someProducts = []
 var someCarts = []
 var someOrders = []
 var someUsers = []
+var someReviews = []
 
 db.sync({ force: true })
   .then(function () {
@@ -132,6 +146,11 @@ db.sync({ force: true })
   .then(function (myCarts) {
     someCarts = myCarts
     console.log(chalk.yellow('Carts seeded...'))
+    return seedReviews()
+  })
+  .then(function (myReviews) {
+    someReviews = myReviews
+    console.log(chalk.yellow('Reviews seeded...'))
     return someCarts[0].addProducts(someProducts)
   })
   .then(function () {
@@ -159,7 +178,23 @@ db.sync({ force: true })
     return someUsers[0].setCart(someCarts[1])
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish user-cart association 2.'))
+    console.log(chalk.red('Attempted to establish user-cart association 1.'))
+    return someReviews[0].setUser(someUsers[0])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-review association 1.'))
+    return someReviews[1].setUser(someUsers[1])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-review association 2.'))
+    return someProducts[0].addReviews(someReviews)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish product-reviews association 1.'))
+    return someProducts[1].addReviews(someReviews)
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish product-reviews association 2.'))
     console.log(chalk.green('Seed successful.'))
     process.exit(0)
   })
