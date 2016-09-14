@@ -124,8 +124,17 @@ var someOrders = []
 var someUsers = []
 var someReviews = []
 
+User.sync({force: true})
+  .then(function () {
+    console.log(chalk.green('Force Sync of Users successful.'))
+  })
+  .catch(function (err) {
+    console.error(err)
+  })
+
 db.sync({ force: true })
   .then(function () {
+    console.log(chalk.green('Force Sync of DB successful.'))
     return seedUsers()
   })
   .then(function (myUsers) {
