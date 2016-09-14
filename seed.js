@@ -13,6 +13,7 @@ var Product = db.model('product')
 var Cart = db.model('cart')
 var Order = db.model('order')
 var Review = db.model('review')
+var Category = db.model('category')
 var Promise = require('sequelize').Promise
 
 var seedUsers = function () {
@@ -74,6 +75,18 @@ var seedReviews = function () {
       author: 'Eliot',
       comment: 'I got ridiculed every single day for wearing this, then to top it off, it spontaneously combusted',
       score: 0.1
+    },
+    {
+      title: 'Favorite Free Tote',
+      author: 'Tony',
+      comment: 'A rat brought this over to me while waiting for the A train. I usually despise how dirty the subways are, but it added to the "Grunge" of this tote.',
+      score: 4.2
+    },
+    {
+      title: ') :',
+      author: 'Dev',
+      comment: 'I watched a homeless man die in this, and when I called the cops they removed it from his body and put it up for sale here. Makes it super retro.',
+      score: 1.1
     }
   ]
 
@@ -104,10 +117,10 @@ var seedOrders = function () {
 var seedCarts = function () {
   var carts = [
     {
-      myItems: [1]
+      status: 'ordered'
     },
     {
-      myItems: []
+      status: 'unordered'
     }
   ]
 
@@ -118,14 +131,41 @@ var seedCarts = function () {
   return Promise.all(creatingCarts)
 }
 
+var seedCategories = function () {
+  var categories = [
+    {
+      type: 'Totes'
+    },
+    {
+      type: 'Not Totes'
+    }
+  ]
+
+  var creatingCategories = categories.map(function (categoryObj) {
+    return Category.create(categoryObj)
+  })
+
+  return Promise.all(creatingCategories)
+}
+
+var someCategories = []
 var someProducts = []
 var someCarts = []
 var someOrders = []
 var someUsers = []
 var someReviews = []
 
+User.sync({force: true})
+  .then(function () {
+    console.log(chalk.green('Force Sync of Users successful.'))
+  })
+  .catch(function (err) {
+    console.error(err)
+  })
+
 db.sync({ force: true })
   .then(function () {
+    console.log(chalk.green('Force Sync of DB successful.'))
     return seedUsers()
   })
   .then(function (myUsers) {
@@ -146,6 +186,11 @@ db.sync({ force: true })
   .then(function (myCarts) {
     someCarts = myCarts
     console.log(chalk.yellow('Carts seeded...'))
+    return seedCategories()
+  })
+  .then(function (myCategories) {
+    someCategories = myCategories
+    console.log(chalk.yellow('Categories seeded...'))
     return seedReviews()
   })
   .then(function (myReviews) {
@@ -187,6 +232,14 @@ db.sync({ force: true })
   })
   .then(function () {
     console.log(chalk.red('Attempted to establish user-review association 2.'))
+    return someReviews[2].setUser(someUsers[0])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-review association 3.'))
+    return someReviews[3].setUser(someUsers[1])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-review association 4.'))
     return someProducts[0].addReviews(someReviews)
   })
   .then(function () {
@@ -195,6 +248,14 @@ db.sync({ force: true })
   })
   .then(function () {
     console.log(chalk.red('Attempted to establish product-reviews association 2.'))
+    return someProducts[0].addCategory(someCategories[0])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish product-category association 1.'))
+    return someProducts[1].addCategory(someCategories[0])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish product-category association 2.'))
     console.log(chalk.green('Seed successful.'))
     process.exit(0)
   })

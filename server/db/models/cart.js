@@ -15,7 +15,7 @@ As agreed:
 */
 
 module.exports = db.define('cart', {
-  myItems: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
+  status: {
+    type: Sequelize.STRING
   }
 })
