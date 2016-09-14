@@ -6,6 +6,6 @@ var db = require('../_db')
 module.exports = db.define('product_order', {
   quantity: {
     type: Sequelize.INTEGER,
-    default: 0
+    defaultValue: 1
   }
 })

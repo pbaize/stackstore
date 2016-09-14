@@ -39,7 +39,6 @@ var seedProducts = function () {
   var products = [
     {
       price: 25.99,
-      category: 'Totes',
       pictureUrl: 'http://i3.cpcache.com/product/643931876/i_love_hipsters_tote_bag.jpg?width=225&height=225&Filters=%5B%7B%22name%22%3A%22background%22%2C%22value%22%3A%22F2F2F2%22%2C%22sequence%22%3A2%7D%5D',
       title: 'Mai Glasses - Tote',
       information: "A revolutionary tote, sporting some trendy glasses that'll let people know that you woke af.",
@@ -47,7 +46,6 @@ var seedProducts = function () {
     },
     {
       price: 10.99,
-      category: 'Totes',
       pictureUrl: 'https://www.zazzle.com/rlv/hipster_tote_bag-r101af6cd5c864d6fafd2ef3872f06cb1_v9w6h_8byvr_324.jpg',
       title: "I'm a Hipster - Tote",
       information: "Don't have good enough style to be a hipster? Just tell people you are one.",
