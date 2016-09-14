@@ -11,7 +11,7 @@ describe('Members Route', function () {
   var app, User
 
   beforeEach('Sync DB', function () {
-    return db.sync({ force: true })
+    return db.sync({ force: false })
   })
 
   beforeEach('Create app', function () {
