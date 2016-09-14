@@ -3,7 +3,7 @@ app.directive('productPreview', function () {
     restrict: 'E',
     templateUrl: 'js/products/productPreview.html',
     scope: {
-      product: '='
+      product: '=product'
     }
   //   link: function (scope, element, attr) {
   //     // we can add more function (function that assign to ng-click)
