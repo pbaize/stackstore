@@ -6,13 +6,13 @@ app.config(function ($stateProvider) {
     templateUrl: '/js/products/product.html',
     controller: 'ProductCtrl',
     resolve: {
-      allProducts: function (ProductFactory) {
-        return ProductFactory.fetchAll()
+      allProducts: function (ProductsFactory) {
+        return ProductsFactory.fetchAll()
       }
     }
   })
 })
 
-app.controller('ProductCtrl', function ($scope, AuthService, $state, ProductFactory, allProducts) {
+app.controller('ProductsCtrl', function ($scope, AuthService, $state, ProductsFactory, allProducts) {
   $scope.products = allProducts
 })
