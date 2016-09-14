@@ -8,7 +8,17 @@
             <h5>{{product.product.information}}</h5>
             <h6>{{product.product.availability}}</h6>
             <h5>{{ product.product.price | currency }}</h5>
-            <h6 ng-repeat="review in product.reviews">{{product.reviews}}</h6>
+            </div>
+            <div class="row">
+            <div class="col-12">
+            <hr class="style-seven">
+            <h1>Reviews</h1>
+            <div ng-repeat="review in product.reviews">
+            <p><strong>{{review.title}}</strong> &nbsp Score : {{review.score}}</p>
+            <p> by {{review.author}}</p>
+            <p>{{review.comment}}</p>
+            </div>
+            </div>
         </div>
     </div>
 </div>
