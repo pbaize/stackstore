@@ -155,7 +155,11 @@ db.sync({ force: true })
     return someUsers[1].setCart(someCarts[0])
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish user-cart association.'))
+    console.log(chalk.red('Attempted to establish user-cart association 1.'))
+    return someUsers[0].setCart(someCarts[1])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-cart association 2.'))
     console.log(chalk.green('Seed successful.'))
     process.exit(0)
   })
