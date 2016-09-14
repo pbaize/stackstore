@@ -7,7 +7,8 @@ module.exports = router
 
 router.post('/', function (req, res, next) {
   var madeUser = {}
-  User.create(req.body)
+  let inputData = req.body
+  User.create(inputData)
     .then(function (createdUser) {
       madeUser = createdUser
       return Cart.create()
