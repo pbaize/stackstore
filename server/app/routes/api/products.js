@@ -16,6 +16,7 @@ router.get('/:id', function (req, res, next) {
   var id = req.params.id
   var foundProduct = {}
   var foundReviews = {}
+  var foundCategory = {}
 
   Products.findById(id)
     .then(function (products) {
@@ -23,11 +24,15 @@ router.get('/:id', function (req, res, next) {
         return res.send(404).end()
       }
       foundProduct = products
-      products.getReviews()
-        .then(function (myReviews) {
-          foundReviews = myReviews
-          res.status(200).send({product: foundProduct, reviews: foundReviews})
-        })
+      return products.getReviews()
+    })
+    .then(function (myReviews) {
+      foundReviews = myReviews
+      return foundProduct.getCategories()
+    })
+    .then(function (myCategories) {
+      foundCategory = myCategories
+      res.status(200).send({product: foundProduct, reviews: foundReviews, categories: foundCategory})
     })
     .catch(next)
 })
