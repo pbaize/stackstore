@@ -1,13 +1,14 @@
 <div class="container">
     <div class="row">
-    <div class="col-6">
-    	<img src = {{product.pictureUrl}}>
+        <div class="col-6">
+            <img src={{product.product.pictureUrl}}>
+        </div>
+        <div class="col-6">
+            <h1>{{product.product.title}}</h1>
+            <h5>{{product.product.information}}</h5>
+            <h6>{{product.product.availability}}</h6>
+            <h5>{{ product.product.price | currency }}</h5>
+            <h6 ng-repeat="review in product.reviews">{{product.reviews}}</h6>
+        </div>
     </div>
-    <div class="col-6"> 
-    	<h1>{{product.title}}</h1>
-    	<h6>{{product.information}}</h6>
-    	<h6>{{product.availability}}</h6>
-    	<h5>{{ product.price | currency }}</h5>
-    </div>
-</div>
 </div>
