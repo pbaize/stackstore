@@ -10,7 +10,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         { label: 'Documentation', state: 'docs' },
         { label: 'Members Only', state: 'membersOnly', auth: true }
       ]
-
+      scope.showCart = false
+      scope.toggleCart = function () {
+        scope.showCart = !scope.showCart
+      }
       scope.user = null
 
       scope.isLoggedIn = function () {
