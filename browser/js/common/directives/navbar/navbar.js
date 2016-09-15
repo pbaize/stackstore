@@ -37,12 +37,18 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
         return total
       }
 
-      scope.cartIncrementQ = function (data) {
-
+      scope.cartIncrementQ = function (productId) {
+        CartFactory.modifyQuantity(productId, 1)
+          .then(function (updatedQuantity) {
+            return updatedQuantity
+          })
       }
 
-      scope.cartDecrementQ = function (data) {
-
+      scope.cartDecrementQ = function (productId) {
+        CartFactory.modifyQuantity(productId, -1)
+          .then(function (updatedQuantity) {
+            return updatedQuantity
+          })
       }
 
       scope.logout = function () {
