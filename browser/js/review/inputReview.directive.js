@@ -1,4 +1,4 @@
-app.directive('inputReview', function (ReviewFactory, $state, $log, $rootScope) {
+app.directive('inputReview', function (ReviewFactory, $state, $log) {
   return {
     restrict: 'E',
     templateUrl: 'js/review/reviewForm.html',

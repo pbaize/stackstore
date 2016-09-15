@@ -31,7 +31,7 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
           cachProducts.push(oneProduct) // put the result to cach
           ProductsFactory.forcingReviewUpdate = false
           return oneProduct
-        }).catch($log.error)
+        })
     } else {
       console.log('using cach result')
       let deferred = $q.defer()
