@@ -1,14 +1,16 @@
-<form name="inputReviewForm" ng-submit="addReview()">
+<form name="inputReviewForm" ng-submit="addReview()" novalidate>
 	<hr style="height:12px;border:0;box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);margin-top:5rem">
 	<h5 style="margin-top:1.5rem;margin-bottom:0.5em">Write your product review</h5>
 
-	<input type="text" name="title" ng-model="review.title" style="width:23%" placeholder="Type in the Review Title">
-	<input type="text" name="comment" ng-model="review.comment" style="min-height:150px">
-	<button type="submit">sumbit review</button>
+	<input type="text" name="title" ng-model="review.title" required style="width:23%" placeholder="Type in the Review Title">
+
+	<input type="text" name="comment" ng-model="review.comment" required style="min-height:150px">
+
+	<button type="submit" ng-disabled="inputReviewForm.$invalid">sumbit review</button>
 
 	<div style="float:right">
 		<span>Your Score:</span>
-		<select ng-model="review.score" convert-to-number style="min-width:10%;margin-left:1%">
+		<select ng-model="review.score" required convert-to-number style="min-width:10%;margin-left:1%">
   			<option value="0">0</option>
   			<option value="1">1</option>
   			<option value="2">2</option>

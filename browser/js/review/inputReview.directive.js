@@ -1,4 +1,4 @@
-app.directive('inputReview', function (ReviewFactory, $state, $log) {
+app.directive('inputReview', function (ReviewFactory, $state, $log, $rootScope) {
   return {
     restrict: 'E',
     templateUrl: 'js/review/reviewForm.html',
@@ -14,7 +14,7 @@ app.directive('inputReview', function (ReviewFactory, $state, $log) {
         }
         ReviewFactory.addReview(sendObject)
           .then(function () {
-            $state.go('singleProduct({id: scope.product.id})')
+            $state.go('singleProduct', {id: scope.product.id}, {reload: true})
           }).catch($log.error)
       }
     }

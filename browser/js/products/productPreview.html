@@ -1,8 +1,9 @@
-<div class="col-3">
+<div class="col-3 product-preview">
 	<!-- <a ui-sref="singleProduct({id: product.id})"> -->
+	<button class="btn centered">Add to Cart</button>
 	<div class="product-spacing" ui-sref="singleProduct({id: product.id})">
 		<img src={{product.pictureUrl}} class="max-full-width">
-		<h4>{{product.title}}</h4>
-		<h5>${{product.price}}</h5>
+		<h5>{{product.title}}</h5>
+		<h6>${{product.price}}</h6>
 	</div>
 </div>
