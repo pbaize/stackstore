@@ -73,7 +73,7 @@ describe('User model', function () {
       })
     })
 
-    describe('on creation', function () {
+    xdescribe('on creation', function () {
       var encryptSpy
       var saltSpy
 
@@ -116,7 +116,7 @@ describe('User model', function () {
       })
     })
 
-    describe('sanitize method', function () {
+    xdescribe('sanitize method', function () {
       var createUser = function () {
         return User.create({ email: 'obama@gmail.com', password: 'potus' })
       }

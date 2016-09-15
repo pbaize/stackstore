@@ -19,7 +19,7 @@ describe('Members Route', function () {
     User = db.model('user')
   })
 
-  describe('Unauthenticated request', function () {
+  xdescribe('Unauthenticated request', function () {
     var guestAgent
 
     beforeEach('Create guest agent', function () {
@@ -33,7 +33,7 @@ describe('Members Route', function () {
     })
   })
 
-  describe('Authenticated request', function () {
+  xdescribe('Authenticated request', function () {
     var loggedInAgent
 
     var userInfo = {
