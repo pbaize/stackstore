@@ -21,6 +21,6 @@ module.exports = db.define('order', {
   },
   totalPrice: {
     type: Sequelize.DECIMAL(16, 2),
-    default: 0
+    defaultValue: 0
   }
 })
