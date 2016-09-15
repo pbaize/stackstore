@@ -1,6 +1,6 @@
 const db = require('../../../db')
 const User = db.model('user')
-const Promise = require('Sequelize').Promise
+const Promise = require('sequelize').Promise
 module.exports = {router: require('./routes')}
 
 const isAdmin = req => req.isAuthenticated()
