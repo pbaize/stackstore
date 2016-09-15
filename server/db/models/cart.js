@@ -17,5 +17,9 @@ As agreed:
 module.exports = db.define('cart', {
   status: {
     type: Sequelize.STRING
+  },
+  totalPrice: {
+    type: Sequelize.DECIMAL(16, 2),
+    defaultValue: 0
   }
 })

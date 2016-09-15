@@ -1,30 +1,46 @@
 <div class="overlay" id="cartOverlay" ng-class="{open: showCart}">
-	<div class="pull-right" id="close" >
-		<div ng-click="toggleCart()">
-			<h2> X </h2>
-		</div>
-	</div>
-	<!-- <div class="cart-view"> -->
-		<div class="container cart-view center">
-			<div class="row cart-item" ng-repeat="item in cartItems">
-				<div class="col-2">
-				<div class="img-container">
-					<img src={{item.pictureUrl}} class="max-full-width">
-					</div>
-				</div>
-				<div class="col-4">
-					<h5>{{item.title}}</h5>
-				</div>
-				<div class="col-3">
-					<h5>{{ item.price | currency }}</h5>
-				</div>
-				<div class="col-3">
-					<button>X</button>
-				</div>
-			</div>
-		</div>
-		<!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
+    <div class="pull-right" id="close">
+        <div ng-click="toggleCart()">
+            <h2> X </h2>
+        </div>
+    </div>
+    <!-- <div class="cart-view"> -->
+    <div class="container cart-view center">
+        <div class='row'>
+            <h5>Shopping Cart  Price</h5>
+        </div>
+        <div class="row cart-item" ng-repeat="item in cartItems">
+            <div class="col-2">
+                <div class="img-container">
+                    <img src={{item.pictureUrl}} class="max-full-width">
+                </div>
+            </div>
+            <div class="col-4">
+                <h5>{{item.title}}</h5>
+            </div>
+            <div class="col-2">
+                <h5>{{ item.price | currency }}</h5>
+            </div>
+            <div class="col-2">
+                <select name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <button>X</button>
+            </div>
+            <footer>
+                <div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
 		<li><a href="#docs" data-speed="1000" class="menuLink scroll">Docs</a></li> -->
-		<!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
-	<!-- </div> -->
+    <!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
+    <!-- </div> -->
 </div>
