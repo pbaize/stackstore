@@ -23,13 +23,13 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
       }
     })
 
-    if (usingCach === false || this.forcingReviewUpdate === true) {
+    if (usingCach === false || ProductsFactory.forcingReviewUpdate === true) {
       return $http.get('/api/products/' + id)
         .then(function (response) {
           console.log('loading new product')
           oneProduct = response.data
           cachProducts.push(oneProduct) // put the result to cach
-          this.forcingReviewUpdate = false
+          ProductsFactory.forcingReviewUpdate = false
           return oneProduct
         }).catch($log.error)
     } else {

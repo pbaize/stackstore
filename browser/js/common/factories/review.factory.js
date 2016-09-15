@@ -4,7 +4,7 @@ app.factory('ReviewFactory', function ($http, $log, $q, ProductsFactory) {
 
   ReviewFactory.addReview = function (data) {
     ProductsFactory.forcingReviewUpdate = true
-    return $http.post('/api/review', {review: data})
+    return $http.post('/api/review', data)
   }
 
   return ReviewFactory
