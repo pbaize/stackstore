@@ -55,7 +55,7 @@ var User = db.define('user', {
     correctPassword: function (candidatePassword) {
       return this.Model.encryptPassword(candidatePassword, this.salt) === this.password
     },
-    isAdmin: function () {
+    checkAdmin: function () {
       return this.isAdmin === true
     }
   },
