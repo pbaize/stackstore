@@ -8,7 +8,7 @@ router.use('/createuser', require('./createuser'))
 
 router.use('/review', require('./review'))
 router.use('/admin', admin.check, admin.router)
-
+router.use('/order', require('./orders.js'))
 router.use(function (req, res) {
   res.status(404).end()
 })
