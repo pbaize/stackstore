@@ -23,6 +23,14 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       scope.isLoggedIn = function () {
         return AuthService.isAuthenticated()
       }
+      scope.getTotal = function () {
+        var total = 0
+        for (var i = 0; i < scope.cartItems.length; i++) {
+          var product = scope.cartItems[i]
+          total += +product.price
+        }
+        return total
+      }
 
       scope.logout = function () {
         AuthService.logout().then(function () {
