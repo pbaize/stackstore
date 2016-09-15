@@ -8,6 +8,7 @@ var ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) {
     next()
   } else {
+    // This is where we will deal with users in session storage.
     res.status(401).end()
   }
 }
