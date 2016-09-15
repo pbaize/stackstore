@@ -20,6 +20,28 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       }
       scope.user = null
 
+      scope.incrementValue = function () {
+        for (var i = 0; i < scope.cartItems.length; i++) {
+          var value = +scope.cartItems[i].quantity
+          value = isNaN(value) ? 0 : value
+          if (value < 10) {
+            value++
+            scope.cartItems[i].quantity = +value
+          }
+        }
+      }
+
+      scope.decrementValue = function () {
+        for (var i = 0; i < scope.cartItems.length; i++) {
+          var value = +scope.cartItems[i].quantity
+          value = isNaN(value) ? 0 : value
+          if (value > 1) {
+            value--
+            scope.cartItems[i].quantity = +value
+          }
+        }
+      }
+
       scope.isLoggedIn = function () {
         return AuthService.isAuthenticated()
       }

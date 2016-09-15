@@ -5,10 +5,7 @@
         </div>
     </div>
     <!-- <div class="cart-view"> -->
-    <div class="container cart-view center" style="overflow:scroll; height:100%;">
-        <div class='row'>
-            <h5>Shopping Cart  Price</h5>
-        </div>
+    <div class="container cart-view center" style=" overflow-x: scroll; height:100%;">
         <div class="row cart-item" ng-repeat="item in cartItems">
             <div class="col-2">
                 <div class="img-container">
@@ -22,13 +19,10 @@
                 <h5>{{ item.price | currency }}</h5>
             </div>
             <div class="col-2">
-                <select name="quantity" ng-model="item.quantity">
-                    <option value="1" >1</option>
-                    <option value="2" >2</option>
-                    <option value="3" >3</option>
-                    <option value="4" >4</option>
-                    <option value="5" >5</option>
-                </select>
+
+                    <input type="text" name="quantity" value="1" maxlength="2" max="10" size="1" ng-model="item.quantity" />
+                    <input type="button" ng-click="incrementValue()" value="+" />
+                    <input type="button" ng-click="decrementValue()" value="-" />
 
             </div>
             <div class="col-2">
@@ -37,7 +31,7 @@
         </div>
         <footer>
             <div>
-               <h5>Total Price:  {{ getTotal() | currency}}</h5>
+                <h5>Total Price:  {{ getTotal() | currency}}</h5>
             </div>
         </footer>
     </div>
