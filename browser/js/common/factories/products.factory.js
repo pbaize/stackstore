@@ -16,12 +16,12 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
 
   ProductsFactory.fetchById = function (id) {
     let usingCach = false
-    cachProducts.forEach((product) => {
-      if (product.id === id) {
-        oneProduct = product
-        usingCach = true
-      }
-    })
+    // cachProducts.forEach((product) => {
+    //   if (product.id === id) {
+    //     oneProduct = product
+    //     usingCach = true
+    //   }
+    // })
 
     if (usingCach === false || ProductsFactory.forcingReviewUpdate === true) {
       return $http.get('/api/products/' + id)
