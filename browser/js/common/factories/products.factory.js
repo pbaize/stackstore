@@ -4,6 +4,8 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
   let ProductsFactory = {}
   let oneProduct
 
+  ProductsFactory.forcingReviewUpdate = false
+
   ProductsFactory.fetchAll = function () {
     return $http.get('/api/products')
       .then(function (response) {
@@ -21,12 +23,13 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
       }
     })
 
-    if (usingCach === false) {
+    if (usingCach === false || ProductsFactory.forcingReviewUpdate === true) {
       return $http.get('/api/products/' + id)
         .then(function (response) {
           console.log('loading new product')
           oneProduct = response.data
           cachProducts.push(oneProduct) // put the result to cach
+          ProductsFactory.forcingReviewUpdate = false
           return oneProduct
         }).catch($log.error)
     } else {
