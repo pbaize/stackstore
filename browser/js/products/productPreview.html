@@ -1,8 +1,8 @@
 <div class="col-3">
-	<a ui-sref="singleProduct({id: product.id})">
-	<div class="product-spacing">
-		<img src={{product.pictureUrl}}>
-		<h3>{{product.title}}</h3>
-		<h3>${{product.price}}</h3>
+	<!-- <a ui-sref="singleProduct({id: product.id})"> -->
+	<div class="product-spacing" ui-sref="singleProduct({id: product.id})">
+		<img src={{product.pictureUrl}} class="max-full-width">
+		<h4>{{product.title}}</h4>
+		<h5>${{product.price}}</h5>
 	</div>
 </div>
