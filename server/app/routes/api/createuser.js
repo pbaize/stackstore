@@ -8,6 +8,7 @@ module.exports = router
 router.post('/', function (req, res, next) {
   var madeUser = {}
   let inputData = req.body
+  inputData.isAdmin = false
   User.create(inputData)
     .then(function (createdUser) {
       madeUser = createdUser
