@@ -33,7 +33,7 @@ describe('Members Route', function () {
     })
   })
 
-  xdescribe('Authenticated request', function () {
+  describe('Authenticated request', function () {
     var loggedInAgent
 
     var userInfo = {

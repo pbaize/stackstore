@@ -7,27 +7,29 @@ var db = require('../_db')
 
 var User = db.define('user', {
   email: {
-    type: Sequelize.STRING,
-    validate: {
-      isUnique: function (username, done) {
-        User.find({
-          where: {
-            email: this.email
-          }
-        })
-          .done(function (err, user) {
-            if (err) {
-              done(err)
-            }
-
-            if (user) {
-              done(new Error('Username already in use'))
-            }
-
-            done()
-          })
+    type: Sequelize.STRING
+  /*
+  validate: {
+  isUnique: function (username, done) {
+    User.find({
+      where: {
+        email: this.email
       }
-    }
+    })
+      .done(function (err, user) {
+        if (err) {
+          done(err)
+        }
+
+        if (user) {
+          done(new Error('Username already in use'))
+        }
+
+        done()
+      })
+  }
+  }
+  */
   },
   password: {
     type: Sequelize.STRING

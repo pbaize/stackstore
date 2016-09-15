@@ -73,7 +73,7 @@ describe('User model', function () {
       })
     })
 
-    xdescribe('on creation', function () {
+    describe('on creation', function () {
       var encryptSpy
       var saltSpy
 
