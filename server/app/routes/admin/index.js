@@ -1,19 +1,17 @@
-const co = require('co')
 const db = require('../../../db')
 const User = db.model('user')
+const Promise = require('Sequelize').Promise
 module.exports = {router: require('./routes')}
 
 const isAdmin = req => req.isAuthenticated()
-  ? co(function * () {
-    let user = yield User.findOne({where: {id: req.user.id}})
-    return user.checkAdmin()
-  }).catch(console.log)
-  : false
+  ? User.findOne({where: {id: req.user.id}})
+    .then(user => user.checkAdmin())
+    .catch(console.log)
+  : Promise.resolve(false)
 
 module.exports.check = function (req, res, next) {
-  return co(function * () {
-    let admin = yield isAdmin(req)
-    if (admin) {
+  isAdmin(req).then(adminStatus => {
+    if (adminStatus) {
       console.log('Admin User: ' + req.user.email)
       next()
     } else {
