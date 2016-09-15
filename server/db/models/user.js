@@ -23,14 +23,21 @@ module.exports = db.define('user', {
   },
   google_id: {
     type: Sequelize.STRING
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   instanceMethods: {
     sanitize: function () {
-      return _.omit(this.toJSON(), ['password', 'salt'])
+      return _.omit(this.toJSON(), ['password', 'salt', 'isAdmin'])
     },
     correctPassword: function (candidatePassword) {
       return this.Model.encryptPassword(candidatePassword, this.salt) === this.password
+    },
+    isAdmin: function () {
+      return this.isAdmin === true
     }
   },
   classMethods: {

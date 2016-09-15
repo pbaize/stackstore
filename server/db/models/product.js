@@ -19,10 +19,6 @@ module.exports = db.define('product', {
     type: Sequelize.DECIMAL(16, 2),
     allowNull: false
   },
-  category: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   pictureUrl: {
     type: Sequelize.STRING
   },
