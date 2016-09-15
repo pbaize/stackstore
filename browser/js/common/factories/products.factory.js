@@ -11,7 +11,7 @@ app.factory('ProductsFactory', function ($http, $log, $q) {
       .then(function (response) {
         let allProducts = response.data
         return allProducts
-      }).catch($log.error)
+      })
   }
 
   ProductsFactory.fetchById = function (id) {
