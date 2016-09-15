@@ -21,7 +21,7 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       scope.user = null
 
       scope.incrementValue = function () {
-        for (var i = 0; i < scope.cartItems.length; i++) {
+        for (let i = 0; i < scope.cartItems.length; i++) {
           var value = +scope.cartItems[i].quantity
           value = isNaN(value) ? 0 : value
           if (value < 10) {
@@ -32,7 +32,7 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       }
 
       scope.decrementValue = function () {
-        for (var i = 0; i < scope.cartItems.length; i++) {
+        for (let i = 0; i < scope.cartItems.length; i++) {
           var value = +scope.cartItems[i].quantity
           value = isNaN(value) ? 0 : value
           if (value > 1) {
@@ -42,21 +42,29 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
         }
       }
 
+      scope.getQuantity = function (item) {
+        return CartFactory.findQuantity()
+          .then(function (allRows) {
+            console.log(allRows)
+            return allRows[allRows.indexOf(item.id)].quantity
+          })
+      }
+
       scope.isLoggedIn = function () {
         return AuthService.isAuthenticated()
       }
-      scope.getTotal = function () {
-        var total = 0
-        for (var i = 0; i < scope.cartItems.length; i++) {
-          var product = scope.cartItems[i]
-          if (!parseInt(product.quantity)) {
-            total += parseInt(product.price)
-          } else {
-            total += (parseInt(product.price) * parseInt(product.quantity))
-          }
-        }
-        return total
-      }
+      // scope.getTotal = function () {
+      //   var total = 0
+      //   for (let i = 0; i < scope.cartItems.length; i++) {
+      //     var product = scope.cartItems[i]
+      //     if (!parseInt(product.quantity)) {
+      //       total += parseInt(product.price)
+      //     } else {
+      //       total += (parseInt(product.price) * parseInt(product.quantity))
+      //     }
+      //   }
+      //   return total
+      // }
 
       scope.cartIncrementQ = function (productId) {
         CartFactory.modifyQuantity(productId, 1)

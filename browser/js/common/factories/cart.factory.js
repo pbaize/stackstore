@@ -9,7 +9,7 @@ app.factory('CartFactory', function ($http, $log, $q) {
           $q.reject({cart: null})
         })
     },
-    findQuantity: function (aProduct) {
+    findQuantity: function () {
       return $http.get('/api/cart/quantity')
         .then(function (myRows) {
           return myRows.data
