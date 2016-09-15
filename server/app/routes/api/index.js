@@ -1,4 +1,4 @@
-var router = require('express').Router() //eslint-disable-newline-cap
+var router = require('express').Router() //eslint-disable-line new-cap
 const admin = require('../admin')
 module.exports = router
 
