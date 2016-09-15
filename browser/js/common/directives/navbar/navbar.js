@@ -27,7 +27,6 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
         var total = 0
         for (var i = 0; i < scope.cartItems.length; i++) {
           var product = scope.cartItems[i]
-
           if (!parseInt(product.quantity)) {
             total += parseInt(product.price)
           } else {
