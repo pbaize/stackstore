@@ -27,6 +27,7 @@
   }
   .cart-view{
     position: relative;
+    height: 80%;
     margin: 0-auto;
     display: block;
     width: 80%;
@@ -56,6 +57,10 @@
   // .container {
   //   position: relative;
   // }
+}
+
+option {
+  color: red;
 }
 
 .overlay.open {

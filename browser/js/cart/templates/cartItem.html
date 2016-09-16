@@ -1,0 +1,21 @@
+<div class="row cart-item">
+	<div class="col-2">
+		<div class="img-container">
+			<img src={{item.pictureUrl}} class="max-full-width">
+		</div>
+	</div>
+	<div class="col-4">
+		<h5>{{item.title}}</h5>
+	</div>
+	<div class="col-2">
+		<h5>{{ item.price | currency }}</h5>
+		<h5>{{item.product_cart.quantity}}</h5>
+	</div>
+	<div class="col-2">
+		<button ng-click="decrement(item.id)">-</button>
+		<button ng-click="increment(item.id)">+</button>
+	</div>
+	<div class="col-2">
+		<button>X</button>
+	</div>
+</div>
