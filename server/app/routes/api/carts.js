@@ -95,7 +95,6 @@ router.put('/quantity', ensureAuthenticated, function (req, res, next) {
       })
     })
     .then(function (myRow) {
-      console.log(myRow)
       myRow.quantity = req.body.quantity
       myRow.save()
     })
