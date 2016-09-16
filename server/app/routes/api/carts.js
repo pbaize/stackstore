@@ -57,7 +57,7 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
     where: {
       userId: req.user.id
     },
-    include: [Products]
+    include: [{model: Products, through: {attributes: ['quantity']}}]
   })
     .then(function (myProducts) {
       res.status(200).json(myProducts)
