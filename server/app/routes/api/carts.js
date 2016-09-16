@@ -3,6 +3,7 @@ var router = require('express').Router()
 var Cart = require('../../../db/models/cart.js')
 var User = require('../../../db/models/user.js')
 var ProCar = require('../../../db/models/product_cart.js')
+var Products = require('../../../db/models/product.js')
 // eslint-disable-line new-cap
 module.exports = router
 
@@ -53,11 +54,11 @@ var ensureAuthenticated = function (req, res, next) {
 
 router.get('/', ensureAuthenticated, function (req, res, next) {
   Cart.findOne({
-    userId: req.user.id
+    where: {
+      userId: req.user.id
+    },
+    include: [Products]
   })
-    .then(function (myCart) {
-      return myCart.getProducts()
-    })
     .then(function (myProducts) {
       res.status(200).json(myProducts)
     })
