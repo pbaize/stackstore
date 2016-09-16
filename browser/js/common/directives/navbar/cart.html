@@ -16,8 +16,9 @@
             </div>
             <div class="col-2">
                 <h5>{{ item.price | currency }}</h5>
+                <h5>{{item.quantity}}</h5>
             </div>
-            <cart-item myItem=item></cart-item>
+            <cart-item ></cart-item>
            <!--  <div class="col-2">
                 <input type="text" name="quantity" value="item.getQuantity(item)" maxlength="2" max="10" size="1" ng-model="item.quantity" />
                 <input type="button" ng-click="item.increment(item)" value="+" />
