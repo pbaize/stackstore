@@ -9,7 +9,7 @@ app.factory('CartFactory', function ($http, $log, $q) {
           $q.reject({cart: null})
         })
     },
-    findQuantity: function (aProduct) {
+    findQuantity: function () {
       return $http.get('/api/cart/quantity')
         .then(function (myRows) {
           return myRows.data
@@ -18,8 +18,8 @@ app.factory('CartFactory', function ($http, $log, $q) {
           $q.reject({cart: null})
         })
     },
-    modifyQuantity: function (aProduct, aQuantity) {
-      return $http.put('/api/cart/quantity', {productId: aProduct.id, quantity: aQuantity})
+    modifyQuantity: function (productId, quantity) {
+      return $http.put('/api/cart/quantity', {productId: productId, quantity: quantity})
         .then(function (updatedRow) {
           return updatedRow.data
         })
