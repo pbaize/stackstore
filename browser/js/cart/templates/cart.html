@@ -5,7 +5,8 @@
         </div>
     </div>
     <div class="container cart-view center" style=" overflow-x: scroll; height:100%;">
-        <div class="row cart-item" ng-repeat="item in cartItems">
+       <cart-item ng-repeat="item in cartItems" item="item"></cart-item>
+<!--         <div class="row cart-item" ng-repeat="item in cartItems">
             <div class="col-2">
                 <div class="img-container">
                     <img src={{item.pictureUrl}} class="max-full-width">
@@ -18,26 +19,24 @@
                 <h5>{{ item.price | currency }}</h5>
                 <h5>{{item.quantity}}</h5>
             </div>
-            <cart-item ></cart-item>
-           <!--  <div class="col-2">
+            <div class="col-2">
                 <input type="text" name="quantity" value="item.getQuantity(item)" maxlength="2" max="10" size="1" ng-model="item.quantity" />
                 <input type="button" ng-click="item.increment(item)" value="+" />
                 <input type="button" ng-click="decrementValue()" value="-" />
             </div>
- -->            <div class="col-2">
+            <div class="col-2">
                 <button>X</button>
-                <cartItem></cartItem>
-            </div>
-            </div>
-            <footer>
-                <div>
-                    <h5>Total Price:  {{ getTotal() | currency}}</h5>
-                </div>
+            </div> -->
         </div>
-        </footer>
-    </div>
-    <!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
-        <li><a href="#docs" data-speed="1000" class="menuLink scroll">Docs</a></li> -->
-    <!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
-    <!-- </div> -->
+        <footer>
+            <div>
+                <h5>Total Price:  {{ getTotal() | currency}}</h5>
+            </div>
+        </div>
+    </footer>
+</div>
+<!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
+<li><a href="#docs" data-speed="1000" class="menuLink scroll">Docs</a></li> -->
+<!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
+<!-- </div> -->
 </div>
