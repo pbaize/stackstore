@@ -23,7 +23,9 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/newOrder', function (req, res, next) {
+  console.log(req.body)
   // let cartId = req.body.id
+  // [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
   let newOrder
   let settingQuantities = []
   let newProduct = req.body.productsData.map(function (data) {
@@ -35,7 +37,7 @@ router.post('/newOrder', function (req, res, next) {
     return order.setProducts(newProduct)
   }).then(function () {
     req.body.productsData.forEach(function (data) {
-      let settingQuantity = ProductOrder.findById({
+      let settingQuantity = ProductOrder.findOne({
         where: {
           orderId: newOrder.id,
           productId: data.id
@@ -47,61 +49,61 @@ router.post('/newOrder', function (req, res, next) {
         })
       settingQuantities.push(settingQuantity)
     })
-  })
-  Promise.all(settingQuantities)
-    .then(function () {
-      res.status(200).end()
-    }).catch(next)
+  }).then(function () {
+    return Promise.all(settingQuantities)
+  }).then(function () {
+    res.status(200).send({message: 'Successful post of order!'})
+  }).catch(next)
 
-    // let creatingNewOrder = Order.create({})
-    // let gettingProducts = Cart.findById(cartId)
-    //   .then(function (cart) {
-    //     return cart.getProducts()
-    //   })
+  // let creatingNewOrder = Order.create({})
+  // let gettingProducts = Cart.findById(cartId)
+  //   .then(function (cart) {
+  //     return cart.getProducts()
+  //   })
 
-    // let settingOrderAndProduct = Promise.all(creatingNewOrder, gettingProducts)
-    //   .then(function (result) {
-    //     newOrder = result[0]
-    //     newProduct = result[1]
-    //     return [
-    //       newOrder.setProducts(newProduct),
-    //       newOrder.setUser(req.user.id)
-    //     ]
-    //   })
+  // let settingOrderAndProduct = Promise.all(creatingNewOrder, gettingProducts)
+  //   .then(function (result) {
+  //     newOrder = result[0]
+  //     newProduct = result[1]
+  //     return [
+  //       newOrder.setProducts(newProduct),
+  //       newOrder.setUser(req.user.id)
+  //     ]
+  //   })
 
-    // settingOrderAndProduct.then(function () {})
+  // settingOrderAndProduct.then(function () {})
 
-    // Promise.all([gettingProducts, creatingNewOrder])
-    //   .then(function (result) {
-    //     let Products = result[0]
-    //     Products.forEach(function (product) {
-    //       ProCar.findOne({
-    //         where: {cartId: cartId, productId: product.id}
-    //       }).then(function (myRow) {
-    //         myRow.quantity = 1
-    //       })
-    //     })
-    //   })
+  // Promise.all([gettingProducts, creatingNewOrder])
+  //   .then(function (result) {
+  //     let Products = result[0]
+  //     Products.forEach(function (product) {
+  //       ProCar.findOne({
+  //         where: {cartId: cartId, productId: product.id}
+  //       }).then(function (myRow) {
+  //         myRow.quantity = 1
+  //       })
+  //     })
+  //   })
 
-    // let products = req.body.productsData.map(function (product) {
-    //   return product.id
-    // })
-    // let prductQuantity = req.body.productsData.map(function (product) {
-    //   return product.quantity
-    // })
-    // let settingQuantity = []
-    // let newOrderId
+  // let products = req.body.productsData.map(function (product) {
+  //   return product.id
+  // })
+  // let prductQuantity = req.body.productsData.map(function (product) {
+  //   return product.quantity
+  // })
+  // let settingQuantity = []
+  // let newOrderId
 
-    // let CreatingNewOrder = Order.create({})
+  // let CreatingNewOrder = Order.create({})
 
-    // let SettingUser = CreatingNewOrder.then(function (createdOrder) {
-    //   return createdOrder.setUser(req.user.id)
-    // })
+  // let SettingUser = CreatingNewOrder.then(function (createdOrder) {
+  //   return createdOrder.setUser(req.user.id)
+  // })
 
-    // let SettingProduct = CreatingNewOrder.then(function (createdOrder) {
-    //   newOrderId = createdOrder.id
-    //   return createdOrder.setProducts(products)
-    // })
+  // let SettingProduct = CreatingNewOrder.then(function (createdOrder) {
+  //   newOrderId = createdOrder.id
+  //   return createdOrder.setProducts(products)
+  // })
 
 // Order.create({})
 //   .then(function (createdOrder) {
