@@ -4,6 +4,13 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
+      scope.$on('cartUpdate', () => {
+        CartFactory.fetchAll()
+          .then(cart => {
+            scope.cartItems = cart.products
+          })
+      })
+      scope.cartItems = []
       scope.items = [
         { label: 'Home', state: 'home' },
         { label: 'About', state: 'about' },
@@ -14,9 +21,10 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       scope.toggleCart = function () {
         CartFactory.fetchAll()
           .then(cart => {
-            scope.cartItems = cart
+            console.log(cart.products)
+            scope.cartItems = cart.products
+            scope.showCart = !scope.showCart
           })
-        scope.showCart = !scope.showCart
       }
       scope.user = null
 
@@ -64,20 +72,6 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       //     }
       //   }
       //   return total
-      // }
-
-      // scope.cartIncrementQ = function (productId) {
-      //   CartFactory.modifyQuantity(productId, 1)
-      //     .then(function (updatedQuantity) {
-      //       return updatedQuantity
-      //     })
-      // }
-
-      // scope.cartDecrementQ = function (productId) {
-      //   CartFactory.modifyQuantity(productId, -1)
-      //     .then(function (updatedQuantity) {
-      //       return updatedQuantity
-      //     })
       // }
 
       scope.logout = function () {
