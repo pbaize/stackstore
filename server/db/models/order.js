@@ -17,7 +17,7 @@ As agreed:
 module.exports = db.define('order', {
   status: {
     type: Sequelize.STRING,
-    allowNull: false
+    defaultValue: 'pre-purchase'
   },
   totalPrice: {
     type: Sequelize.DECIMAL(16, 2),
