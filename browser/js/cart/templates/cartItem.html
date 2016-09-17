@@ -1,7 +1,7 @@
 <div class="row cart-item">
 	<div class="col-2">
 		<div class="img-container">
-			<img src={{item.pictureUrl}} class="max-full-width">
+			<img ng-src={{item.pictureUrl}} class="max-full-width">
 		</div>
 	</div>
 	<div class="col-4">
@@ -16,6 +16,6 @@
 		<button ng-click="increment(item.id)">+</button>
 	</div>
 	<div class="col-2">
-		<button>X</button>
+		<button ng-click="removeFromCart(item.id)">X</button>
 	</div>
 </div>

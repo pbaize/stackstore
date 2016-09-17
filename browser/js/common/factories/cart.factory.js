@@ -15,7 +15,7 @@ app.factory('CartFactory', function ($http, $log, $q) {
           return myRows.data
         })
         .catch(function () {
-          $q.reject({cart: null})
+          $q.reject({message: 'Error finding quantity in cart!'})
         })
     },
     modifyQuantity: function (productId, quantity) {
@@ -24,7 +24,25 @@ app.factory('CartFactory', function ($http, $log, $q) {
           return updatedRow.data
         })
         .catch(function () {
-          $q.reject({cart: null})
+          $q.reject({message: 'Error modifying quantity in cart!'})
+        })
+    },
+    removeFromCart: function (productId) {
+      return $http.delete('/api/cart/' + productId)
+        .then(function (deletedRow) {
+          return deletedRow.data
+        })
+        .catch(function () {
+          $q.reject({message: 'Error removing from cart!'})
+        })
+    },
+    addToCart: function (productId) {
+      return $http.post('/api/cart/' + productId)
+        .then(function (createdRow) {
+          return createdRow.data
+        })
+        .catch(function () {
+          $q.reject({message: 'Error adding to cart!'})
         })
     }
   }

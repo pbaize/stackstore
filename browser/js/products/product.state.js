@@ -23,7 +23,7 @@ app.config(function ($stateProvider) {
     })
 })
 
-app.controller('ProductsCtrl', function ($scope, AuthService, $state, ProductsFactory, allProducts) {
+app.controller('ProductsCtrl', function ($scope, allProducts, CartFactory) {
   $scope.products = allProducts
 })
 
