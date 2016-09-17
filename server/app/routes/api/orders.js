@@ -12,7 +12,7 @@ const Product = require('../../../db/models/product.js')
 
 module.exports = router
 
-var ensureAuthenticated = function (req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     next()
   } else {
@@ -37,22 +37,16 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
   Order.findAll({
     where: {userId: req.user.id},
     include: [Product]
-  }).then(function (orders) {
-    res.send(orders)
-  }).catch(next)
+  }).then(orders => res.send(orders))
+    .catch(next)
 })
 
 router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
   // expecting incoming req.body.productsData = [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
   let settingProductAndQuantity = []
-  let productsData = req.body.productsData.sort(function (a, b) { return a.id - b.id }) // sort all elements id in acending order
-  let newProductID = productsData.map(function (data) {
-    return data.id
-  })
-  let newProductQuantity = productsData.map(function (data) {
-    return data.quantity
-  })
-
+  let productsData = req.body.productsData.sort((a, b) => a.id - b.id) // sort all elements id in acending order
+  let newProductID = productsData.map(data => data.id)
+  let newProductQuantity = productsData.map(data => data.quantity)
   Product.findAll({
     where: {id: newProductID}
   })
@@ -60,7 +54,7 @@ router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
       let totalPrice = products.reduce(function (pre, cur, i) {
         return pre + cur.price * newProductQuantity[i]
       }, 0)
-      return Order.create({totalPrice: totalPrice})
+      return Order.create({totalPrice})
     })
     .then(function (order) { // this operation will set the newly created order to client order product and quantity
       productsData.forEach(function (product) {
