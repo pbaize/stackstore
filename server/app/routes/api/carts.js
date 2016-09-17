@@ -29,6 +29,9 @@ var ensureAuthenticated = function (req, res, next) {
         } else {
           console.log('Found Session User')
         }
+        req.user = {
+          id: myUser.id
+        }
         return Cart.findOrCreate({
           where: {
             userId: myUser.id
@@ -41,10 +44,7 @@ var ensureAuthenticated = function (req, res, next) {
         } else {
           console.log('Found Cart for Session User')
         }
-        return myCart.getProducts()
-      })
-      .then(function (myProducts) {
-        res.status(200).json(myProducts)
+        next()
       })
       .catch(function (err) {
         res.status(400).send({message: err.message})
@@ -67,7 +67,9 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
 
 router.get('/quantity', ensureAuthenticated, function (req, res, next) {
   Cart.findOne({
-    userId: req.user.id || req.session.id
+    where: {
+      userId: req.user.id
+    }
   })
     .then(function (myCart) {
       return ProCar.findAll({
@@ -84,7 +86,9 @@ router.get('/quantity', ensureAuthenticated, function (req, res, next) {
 
 router.put('/quantity', ensureAuthenticated, function (req, res, next) {
   Cart.findOne({
-    userId: req.user.id || req.session.id
+    where: {
+      userId: req.user.id
+    }
   })
     .then(function (myCart) {
       return ProCar.findOne({
@@ -107,7 +111,9 @@ router.put('/quantity', ensureAuthenticated, function (req, res, next) {
 router.delete('/:id', ensureAuthenticated, function (req, res, next) {
   let deleteId = req.params.id
   Cart.findOne({
-    userId: req.user.id || req.session.id
+    where: {
+      userId: req.user.id
+    }
   })
     .then(function (myCart) {
       return ProCar.destroy({
@@ -126,10 +132,14 @@ router.delete('/:id', ensureAuthenticated, function (req, res, next) {
 router.post('/:id', ensureAuthenticated, function (req, res, next) {
   let addId = req.params.id
   let myCart = {}
+  console.log('User Id: ' + req.user.id)
   Cart.findOne({
-    userId: req.user.id || req.session.id
+    where: {
+      userId: req.user.id
+    }
   })
     .then(function (foundCart) {
+      console.log('Cart Id: ' + foundCart.id)
       myCart = foundCart
       return Products.findOne({
         id: addId
