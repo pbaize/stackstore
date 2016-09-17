@@ -1,0 +1,12 @@
+<div class="overlay" id="cartOverlay" ng-class="{open: showOrder}">
+    <div class="pull-right" id="close">
+        <div ng-click="toggleOrder()">
+            <h2> X </h2>
+        </div>
+    </div>
+    <div class="container cart-view center" style=" overflow-x: scroll;">
+        <order-item ng-repeat="item in orderItems" ></order-item>
+
+
+    </div>
+</div>
