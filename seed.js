@@ -124,6 +124,9 @@ var seedCarts = function () {
     },
     {
       status: 'unordered'
+    },
+    {
+      status: 'unordered'
     }
   ]
 
@@ -226,7 +229,11 @@ db.sync({ force: true })
     return someUsers[0].setCart(someCarts[1])
   })
   .then(function () {
-    console.log(chalk.red('Attempted to establish user-cart association 1.'))
+    console.log(chalk.red('Attempted to establish user-cart association 2.'))
+    return someUsers[2].setCart(someCarts[2])
+  })
+  .then(function () {
+    console.log(chalk.red('Attempted to establish user-cart association 3.'))
     return someReviews[0].setUser(someUsers[0])
   })
   .then(function () {
