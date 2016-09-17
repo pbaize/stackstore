@@ -103,3 +103,43 @@ router.put('/quantity', ensureAuthenticated, function (req, res, next) {
     })
     .catch(next)
 })
+
+router.delete('/:id', ensureAuthenticated, function (req, res, next) {
+  let deleteId = req.params.id
+  Cart.findOne({
+    userId: req.user.id || req.session.id
+  })
+    .then(function (myCart) {
+      return ProCar.destroy({
+        where: {
+          productId: deleteId,
+          cartId: myCart.id
+        }
+      })
+    })
+    .then(function (deletedRow) {
+      res.status(200).json({message: 'Deleted From Cart!'})
+    })
+    .catch(next)
+})
+
+router.post('/:id', ensureAuthenticated, function (req, res, next) {
+  let addId = req.params.id
+  let myCart = {}
+  Cart.findOne({
+    userId: req.user.id || req.session.id
+  })
+    .then(function (foundCart) {
+      myCart = foundCart
+      return Products.findOne({
+        id: addId
+      })
+    })
+    .then(function (foundProduct) {
+      return myCart.addProduct(foundProduct)
+    })
+    .then(function (addedRow) {
+      res.status(200).json({message: 'Added To Cart!'})
+    })
+    .catch(next)
+})
