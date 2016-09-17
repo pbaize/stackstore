@@ -5,7 +5,7 @@ const Order = require('../../../db/models/order.js')
 // const User = require('../../../db/models/user.js')
 const User = require('../../../db/models/user.js')
 const Product = require('../../../db/models/product.js')
-const ProductOrder = require('../../../db/models/product_order.js')
+// const ProductOrder = require('../../../db/models/product_order.js')
 // const Cart = require('../../../db/models/cart.js')
 // const ProCar = require('../../../db/models/product_cart.js')
 // const Review = require('../../../db/models/review.js')
@@ -43,95 +43,38 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
 })
 
 router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
-  console.log(req.body)
-  // let cartId = req.body.id
-  // [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
-  let newOrder
-  let settingQuantities = []
-  let newProduct = req.body.productsData.map(function (data) {
+  // expecting incoming req.body.productsData = [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
+  let settingProductAndQuantity = []
+  let productsData = req.body.productsData.sort(function (a, b) { return a.id - b.id }) // sort all elements id in acending order
+  let newProductID = productsData.map(function (data) {
     return data.id
   })
+  let newProductQuantity = productsData.map(function (data) {
+    return data.quantity
+  })
 
-  Order.create({}).then(function (order) {
-    newOrder = order
-    return order.setProducts(newProduct)
-  }).then(function () {
-    req.body.productsData.forEach(function (data) {
-      let settingQuantity = ProductOrder.findOne({
-        where: {
-          orderId: newOrder.id,
-          productId: data.id
-        }
-      })
-        .then(function (myRow) {
-          myRow.quantity = data.quantity
-          return myRow.save()
-        })
-      settingQuantities.push(settingQuantity)
+  Product.findAll({
+    where: {id: newProductID}
+  })
+    .then(function (products) { // this operation will get the total price base on product quantity and price
+      let totalPrice = products.reduce(function (pre, cur, i) {
+        return pre + cur.price * newProductQuantity[i]
+      }, 0)
+      return Order.create({totalPrice: totalPrice})
     })
-  }).then(function () {
-    return Promise.all(settingQuantities)
-  }).then(function () {
-    res.status(200).send({message: 'Successful post of order!'})
-  }).catch(next)
-
-  // let creatingNewOrder = Order.create({})
-  // let gettingProducts = Cart.findById(cartId)
-  //   .then(function (cart) {
-  //     return cart.getProducts()
-  //   })
-
-  // let settingOrderAndProduct = Promise.all(creatingNewOrder, gettingProducts)
-  //   .then(function (result) {
-  //     newOrder = result[0]
-  //     newProduct = result[1]
-  //     return [
-  //       newOrder.setProducts(newProduct),
-  //       newOrder.setUser(req.user.id)
-  //     ]
-  //   })
-
-  // settingOrderAndProduct.then(function () {})
-
-  // Promise.all([gettingProducts, creatingNewOrder])
-  //   .then(function (result) {
-  //     let Products = result[0]
-  //     Products.forEach(function (product) {
-  //       ProCar.findOne({
-  //         where: {cartId: cartId, productId: product.id}
-  //       }).then(function (myRow) {
-  //         myRow.quantity = 1
-  //       })
-  //     })
-  //   })
-
-  // let products = req.body.productsData.map(function (product) {
-  //   return product.id
-  // })
-  // let prductQuantity = req.body.productsData.map(function (product) {
-  //   return product.quantity
-  // })
-  // let settingQuantity = []
-  // let newOrderId
-
-  // let CreatingNewOrder = Order.create({})
-
-  // let SettingUser = CreatingNewOrder.then(function (createdOrder) {
-  //   return createdOrder.setUser(req.user.id)
-  // })
-
-  // let SettingProduct = CreatingNewOrder.then(function (createdOrder) {
-  //   newOrderId = createdOrder.id
-  //   return createdOrder.setProducts(products)
-  // })
-
-// Order.create({})
-//   .then(function (createdOrder) {
-//     return createdOrder.setUser(req.user.id)
-//   })
-//   .then(function (finalOrder) {
-//     res.status(200).json(finalOrder)
-//   }).catch(next)
+    .then(function (order) { // this operation will set the newly created order to client order product and quantity
+      productsData.forEach(function (product) {
+        let adding = order.addProduct(product.id, {quantity: product.quantity})
+        settingProductAndQuantity.push(adding) // each operation result in promise which will be push in to promise array
+      })
+      return order.setUser(req.user.id)
+    })
+    .then(function () {
+      return Promise.all(settingProductAndQuantity)
+    })
+    .then(function () {
+      res.status(200).send({message: 'Successful post of order!'})
+    }).catch(next)
 })
 
 router.put('/:id/:status', ensureAuthenticated, function (req, res, next) {
