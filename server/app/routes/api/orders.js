@@ -3,6 +3,7 @@
 const router = require('express').Router()
 const Order = require('../../../db/models/order.js')
 // const User = require('../../../db/models/user.js')
+const User = require('../../../db/models/user.js')
 const Product = require('../../../db/models/product.js')
 const ProductOrder = require('../../../db/models/product_order.js')
 // const Cart = require('../../../db/models/cart.js')
@@ -11,8 +12,27 @@ const ProductOrder = require('../../../db/models/product_order.js')
 
 module.exports = router
 
+var ensureAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    User.findOne({
+      where: {
+        email: req.session.id
+      }
+    })
+      .then(function (myUser) {
+        req.user = {
+          id: myUser.id
+        }
+        next()
+      })
+      .catch(next)
+  }
+}
+
 // getting all the orders for the login user (login user should have req.user.id)
-router.get('/', function (req, res, next) {
+router.get('/', ensureAuthenticated, function (req, res, next) {
   console.log('hitting order route', req.user.id)
   Order.findAll({
     where: {userId: req.user.id},
@@ -22,7 +42,7 @@ router.get('/', function (req, res, next) {
   }).catch(next)
 })
 
-router.post('/newOrder', function (req, res, next) {
+router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
   console.log(req.body)
   // let cartId = req.body.id
   // [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
@@ -114,7 +134,7 @@ router.post('/newOrder', function (req, res, next) {
 //   }).catch(next)
 })
 
-router.put('/:id/:status', function (req, res, next) {
+router.put('/:id/:status', ensureAuthenticated, function (req, res, next) {
   let orderId = req.params.id
   let newStatus = req.params.status
   Order.findById(orderId)
