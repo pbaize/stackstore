@@ -14,4 +14,12 @@ app.controller('CartItemCtrl', function ($scope, $state, CartFactory) {
         return updatedQuantity
       })
   }
+
+  $scope.removeFromCart = function (productId) {
+    CartFactory.removeFromCart(productId)
+      .then(function (removedItem) {
+        $scope.$emit('cartUpdate')
+        return removedItem
+      })
+  }
 })
