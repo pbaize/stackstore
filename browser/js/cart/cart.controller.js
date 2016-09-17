@@ -12,18 +12,4 @@ app.controller('CartCtrl', function ($scope, $state, CartFactory) {
     return total
   }
   $scope.$on('cartUpdate', $scope.getTotal)
-  // $scope.increment = function (productId) {
-  //   CartFactory.modifyQuantity(productId, 1)
-  //     .then(function (updatedQuantity) {
-  //       console.log(updatedQuantity)
-  //       return updatedQuantity
-  //     })
-  // }
-
-// $scope.decrement = function (productId) {
-//   CartFactory.modifyQuantity(productId, -1)
-//     .then(function (updatedQuantity) {
-//       return updatedQuantity
-//     })
-// }
 })

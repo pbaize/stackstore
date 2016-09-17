@@ -21,7 +21,6 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
       scope.toggleCart = function () {
         CartFactory.fetchAll()
           .then(cart => {
-            console.log(cart.products)
             scope.cartItems = cart.products
             scope.showCart = !scope.showCart
           })
