@@ -28,8 +28,8 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       scope.showOrder = false
       scope.toggleOrder = function () {
         OrderFactory.fetchAll()
-          .then(order => {
-            scope.orderItems = order.products
+          .then(orders => {
+            scope.orderItems = orders
             scope.showOrder = !scope.showOrder
           })
       }
