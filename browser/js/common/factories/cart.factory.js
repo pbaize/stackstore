@@ -27,8 +27,8 @@ app.factory('CartFactory', function ($http, $log, $q) {
           $q.reject({message: 'Error modifying quantity in cart!'})
         })
     },
-    removeFromCart: function () {
-      return $http.delete('/api/cart/:id')
+    removeFromCart: function (productId) {
+      return $http.delete('/api/cart/' + productId)
         .then(function (deletedRow) {
           return deletedRow.data
         })
@@ -36,8 +36,8 @@ app.factory('CartFactory', function ($http, $log, $q) {
           $q.reject({message: 'Error removing from cart!'})
         })
     },
-    addToCart: function () {
-      return $http.post('/api/cart/:id')
+    addToCart: function (productId) {
+      return $http.post('/api/cart/' + productId)
         .then(function (createdRow) {
           return createdRow.data
         })
