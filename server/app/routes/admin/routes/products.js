@@ -1,14 +1,8 @@
 const db = require('../../../../db/models/product')
 const router = require('express').Router()
+const m = require('../middleware')
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  db.findAll()
-    .then(data => res.send(data))
-    .catch(console.log)
-})
-router.put('/:id', (req, res, next) => {
-  db.findOne({where: {id: req.params.id}})
-    .then(prod => prod.update(req.body))
-    .catch(console.log)
-})
+router.get('/', m.getAll(db))
+router.get('/:id', m.getOne(db))
+router.put('/:id', m.updateOne(db))

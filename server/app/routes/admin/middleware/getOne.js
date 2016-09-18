@@ -1,6 +1,6 @@
-module.exports = function getAll (db) {
+module.exports = function getOne (db) {
   return function (req, res, next) {
-    db.findAll()
+    db.findOne({where: {id: req.params.id}})
       .then(data => res.send(data))
       .catch(console.log)
   }
