@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state) {
   return {
     restrict: 'E',
     scope: {},
@@ -25,6 +25,15 @@ app.directive('navbar', function ($rootScope, CartFactory, AuthService, AUTH_EVE
             scope.showCart = !scope.showCart
           })
       }
+      scope.showOrder = false
+      scope.toggleOrder = function () {
+        OrderFactory.fetchAll()
+          .then(orders => {
+            scope.orderItems = orders
+            scope.showOrder = !scope.showOrder
+          })
+      }
+
       scope.user = null
 
       // scope.incrementValue = function () {
