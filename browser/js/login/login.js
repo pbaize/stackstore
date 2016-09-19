@@ -4,6 +4,11 @@ app.config(function ($stateProvider) {
     templateUrl: 'js/login/login.html',
     controller: 'LoginCtrl'
   })
+  .state('signUp', {
+    url: '/signUp',
+    templateUrl: 'js/login/signUp.html',
+    constroller: 'loginCtrl'
+  })
 })
 
 app.controller('LoginCtrl', function ($scope, AuthService, $state, CreateUserFactory) {
