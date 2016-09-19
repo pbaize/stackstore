@@ -21,9 +21,11 @@
 }
 
 .product-preview {
+    margin: 0 auto;
     position: relative;
-    width: 100%;
-    height: 20em;
+    max-width: 100%;
+    height: 25em;
+    width: 15em;
     margin-bottom: auto;
 
     .btn {
@@ -31,7 +33,7 @@
         // border-color: black;
         display: none;
         z-index: 1;
-        position: absolute;
+        //position: absolute;
         // top: 10px;
         // left: 50%;
         // margin-left: -50px;
