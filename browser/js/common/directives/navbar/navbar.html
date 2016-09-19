@@ -2,18 +2,19 @@
 <order></order>
 <nav class="navbar navbar-static-top">
     <div class="container">
-        <div class="row topnav">
-        <div class="col-6">
+        <div class="row topnav" id="topNavRow">
+        <div class="col-6" id="userRowStuff">
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.email }}!</span>
                 <a ng-click="logout()">Logout</a>
+                |
                 <a ng-click="settings()">User Settings</a>
             </div>
             <div ng-show="user" class="userSettings">
 
             </div>
             </div>
-            <div class="col-6">
+            <div class="col-6" id="cartRowStuff">
             <!-- <fullstack-logo class="pull-left"></fullstack-logo> -->
             <div class="navgroup pull-right">
                 <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Sign Up</button>

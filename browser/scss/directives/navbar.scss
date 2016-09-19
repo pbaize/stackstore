@@ -1,5 +1,5 @@
 
-$logosize: 10%;
+$logosize: 15%;
 
 navbar {
     display: block;
@@ -17,8 +17,9 @@ navbar {
 
     #largelogo {
         display: block;
-        margin-left: 50% - $logosize / 2;
-        width: $logosize;
+        margin: 0 auto;
+        width: 7.5em;
+        height: 7.5em;
         margin-top: 2em;
     }
 
@@ -119,4 +120,14 @@ navbar {
     width: 80%;
     margin: 0 auto;
     margin-top: .5em;
+}
+
+#cartRowStuff {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#userRowStuff {
+    width: 50%;
+    margin: 0 auto;
 }
