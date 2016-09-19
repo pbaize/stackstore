@@ -24,10 +24,11 @@
     margin: 0 auto;
     position: relative;
     max-width: 100%;
-    height: 25em;
+    height: 20em;
     width: 15em;
     margin-bottom: auto;
 
+    //Button is all full of CSS weirdness.
     .btn {
         // color: black;
         // border-color: black;
@@ -40,6 +41,7 @@
     }
 }
 
+//Problem with responsive design here - left 14% doesnt fly there
 .centered {
     position: absolute;
     top: 50%;
