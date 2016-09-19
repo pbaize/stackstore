@@ -5,6 +5,7 @@
         <div class="row topnav">
             <fullstack-logo class="pull-left"></fullstack-logo>
             <div class="navgroup pull-right">
+                 <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Sign Up</button>
                 <button ng-show="!user" ui-sref="login" class="btn btn-outline-inverted login-button">Login</button>
                 <div ng-show="user" class="welcome">
                     <span>Welcome, {{ user.email }}!</span>

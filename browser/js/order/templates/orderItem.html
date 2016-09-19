@@ -1,10 +1,10 @@
-<div class="row cart-item">
+<div class="row cart-item" style="height: 10em">
     <div class="col-6">
         <h5>Order #: <span style="font-weight: bold">{{item.id}}</span></h5>
         <h5>Order Date: {{item.createdAt | date: shortDate}}</h5>
         <h5>Status: {{item.status}}</h5>
     </div>
-    <div class="col-6">
+    <div class="col-6" style="height: 10em; overflow-y: auto">
         <ul>
             <div ng-repeat="product in item.products">
                 <li>{{product.title}} - {{product.price | currency}}</li>
