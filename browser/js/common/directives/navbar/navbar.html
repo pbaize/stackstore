@@ -19,7 +19,8 @@
             <div class="navgroup pull-right">
                 <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Signup</button>
                 <button ng-show="!user" ui-sref="login" class="btn btn-outline-inverted login-button">Login</button>
-                <button class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
+                <button ng-show="cartItems !== undefined && cartItems.length === 0" class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
+                <button ng-show="cartItems !== undefined && cartItems.length > 0" class="btn btn-primary" id="cart" ng-click="toggleCart()">cart ({{cartItems.length}})</button>
                 <button class="btn btn-primary" id="order" ng-show="user" ng-click="toggleOrder()">Order</button>
             </div>
             </div>
