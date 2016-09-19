@@ -28,10 +28,10 @@
   .cart-view{
     position: relative;
     //height: 80%;
-    margin: 0-auto;
-    display: block;
-    width: 80%;
-    margin-left: 10%;
+    margin: 0 auto;
+    display: relative;
+    width: 85%;
+    margin-left: 5%;
     * {
       color: white;
     }
@@ -74,7 +74,7 @@ option {
 
 .overlay.open {
   height: 100%;
-  opacity: .98;
+  opacity: .95;
   visibility: visible;
 }
 
@@ -197,4 +197,14 @@ option {
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
+}
+
+#price-center {
+  border: none;
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+  position: relative;
+  color: red;
+  margin-top: 0;
 }
