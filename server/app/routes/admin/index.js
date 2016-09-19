@@ -16,7 +16,7 @@ module.exports.check = function (req, res, next) {
       next()
     } else {
       console.log('not an admin')
-      res.status(401).end()
+      res.status(401).send({show: false})
     }
   })
 }
