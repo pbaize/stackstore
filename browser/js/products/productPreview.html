@@ -3,7 +3,9 @@
 	<button class="btn centered" ng-click="addToCart(product.id)">Add to Cart</button>
 	<div  class="product-spacing" ui-sref="singleProduct({id: product.id})">
 		<img ng-src={{product.pictureUrl}}  class="max-full-width">
-		<h5>{{product.title}}</h5>
+        <div id="product-title">
+		  <h5>{{product.title}}</h5>
+        </div>
 		<h6>${{product.price}}</h6>
 	</div>
 </div>
