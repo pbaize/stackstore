@@ -37,6 +37,7 @@ app.factory('CartFactory', function ($http, $log, $q) {
         })
     },
     addToCart: function (productId) {
+      console.log('Product ID: ' + productId)
       return $http.post('/api/cart/' + productId)
         .then(function (createdRow) {
           return createdRow.data
