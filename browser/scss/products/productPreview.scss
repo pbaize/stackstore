@@ -15,8 +15,10 @@
 }
 
 #product-title {
-    height: 6em;
+    text-align: center;
+    height: 2em;
     line-height: 1em;
+    font-size: 1.5em;
     overflow: hidden;
 }
 
@@ -26,7 +28,7 @@
     max-width: 100%;
     height: 20em;
     width: 15em;
-    margin-bottom: auto;
+    margin-bottom: 1em;
 
     //Button is all full of CSS weirdness.
     .btn {
@@ -58,4 +60,11 @@
     .product-spacing {
         opacity: .3;
     }
+}
+
+
+#totalPrice {
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
 }

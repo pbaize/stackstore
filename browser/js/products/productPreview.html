@@ -4,8 +4,8 @@
 	<div  class="product-spacing" ui-sref="singleProduct({id: product.id})">
 		<img ng-src={{product.pictureUrl}}  class="max-full-width">
         <div id="product-title">
-		  <h5>{{product.title}}</h5>
+		  {{product.title}}
         </div>
-		<h6>${{product.price}}</h6>
+		<h6 id="totalPrice">{{product.price | currency}}</h6>
 	</div>
 </div>
