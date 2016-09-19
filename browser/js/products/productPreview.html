@@ -1,8 +1,8 @@
-<div class="col-3 product-preview">
+<div class="col-3 product-preview" class="max-full-height">
 	<!-- <a ui-sref="singleProduct({id: product.id})"> -->
 	<button class="btn centered" ng-click="addToCart(product.id)">Add to Cart</button>
 	<div  class="product-spacing" ui-sref="singleProduct({id: product.id})">
-		<img ng-src={{product.pictureUrl}} height="324"  width="324"  class="max-full-width">
+		<img ng-src={{product.pictureUrl}}  class="max-full-width">
 		<h5>{{product.title}}</h5>
 		<h6>${{product.price}}</h6>
 	</div>

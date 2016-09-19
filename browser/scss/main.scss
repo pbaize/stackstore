@@ -9,7 +9,7 @@ body {
 }
 
 .row {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 
@@ -25,6 +25,11 @@ body {
 }
 .max-full-width {
   max-width: 100%;
+  box-sizing: border-box;
+}
+
+.max-full-height {
+  max-height: 100%;
   box-sizing: border-box;
 }
 

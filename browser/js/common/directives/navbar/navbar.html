@@ -6,9 +6,10 @@
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.email }}!</span>
                 <a ng-click="logout()">Logout</a>
+                <a ng-click="settings()">User Settings</a>
             </div>
             <div ng-show="user" class="userSettings">
-                <span>User Settings</span>
+
             </div>
             <!-- <fullstack-logo class="pull-left"></fullstack-logo> -->
             <div class="navgroup pull-right">
@@ -17,7 +18,7 @@
                 <button class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
                 <button class="btn btn-primary" id="order" ng-show="user" ng-click="toggleOrder()">Order</button>
             </div>
-            <img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png">
+            <a ui-sref="home"><img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png"></a>
         </div>
         <div class="row lowernav">
             <ul class="nav">

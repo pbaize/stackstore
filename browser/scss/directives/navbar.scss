@@ -5,7 +5,7 @@ navbar {
     display: block;
     width: 100%;
     background: white;
-    margin-bottom: 100px ;
+    margin-bottom: 1em;
     // border-bottom: 1px solid black;
     @import "cart";
     .container {
@@ -15,17 +15,13 @@ navbar {
         margin: 0px;
     }
 
-    fullstack-logo {
-        display: block;
-        margin-top: 5px;
-        width: 5%;
-    }
-
     #largelogo {
         display: block;
         margin-left: 50% - $logosize / 2;
         width: $logosize;
+        margin-top: 2em;
     }
+
 
     a {
         color: black;
