@@ -45,6 +45,15 @@ app.factory('CartFactory', function ($http, $log, $q) {
         .catch(function () {
           $q.reject({message: 'Error adding to cart!'})
         })
+    },
+    clearCart: function () {
+      return $http.delete('/api/cart/')
+        .then(function (clearedCart) {
+          return clearedCart.data
+        })
+        .catch(function () {
+          $q.reject({message: 'Error clearing cart!'})
+        })
     }
   }
 })

@@ -155,3 +155,22 @@ router.post('/:id', ensureAuthenticated, function (req, res, next) {
     })
     .catch(next)
 })
+
+router.delete('/', ensureAuthenticated, function (req, res, next) {
+  Cart.findOne({
+    where: {
+      userId: req.user.id
+    }
+  })
+    .then(function (myCart) {
+      return ProCar.destroy({
+        where: {
+          cartId: myCart.id
+        }
+      })
+    })
+    .then(function (clearedCart) {
+      res.status(200).json({message: 'Cleared Cart!'})
+    })
+    .catch(next)
+})

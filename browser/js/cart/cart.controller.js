@@ -17,10 +17,13 @@ app.controller('CartCtrl', function ($scope, $state, CartFactory, OrderFactory, 
   // an ajax request hit the post order route with all the products info
   $scope.checkout = function () {
     OrderFactory.checkout($scope.cartItems)
-      .then(function (res) {
-        console.log(res.data)
+      .then(function (newOrder) {
         $scope.showCart = !$scope.showCart
         $scope.toggleOrder()
+        return CartFactory.clearCart()
+      })
+      .then(function (clearedCart) {
+        console.log('Success Clearing Cart.')
       })
   }
 })
