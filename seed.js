@@ -44,8 +44,8 @@ var seedProducts = function () {
   var products = [
     {
       price: 25.99,
-      pictureUrl: 'http://i3.cpcache.com/product/643931876/i_love_hipsters_tote_bag.jpg?width=225&height=225&Filters=%5B%7B%22name%22%3A%22background%22%2C%22value%22%3A%22F2F2F2%22%2C%22sequence%22%3A2%7D%5D',
-      title: 'Mai Glasses - Tote',
+      pictureUrl: 'http://rlv.zcache.com/hipster_pigster_tote_bag-r1a4d19d935c14978864bd9b667507d0f_v9w6h_8byvr_324.jpg',
+      title: 'Mice Glasses - Tote',
       information: "A revolutionary tote, sporting some trendy glasses that'll let people know that you woke af.",
       availability: true
     },
@@ -54,6 +54,34 @@ var seedProducts = function () {
       pictureUrl: 'https://www.zazzle.com/rlv/hipster_tote_bag-r101af6cd5c864d6fafd2ef3872f06cb1_v9w6h_8byvr_324.jpg',
       title: "I'm a Hipster - Tote",
       information: "Don't have good enough style to be a hipster? Just tell people you are one.",
+      availability: true
+    },
+    {
+      price: 15.99,
+      pictureUrl: 'http://rlv.zcache.com/life_is_like_a_camera_quote_hipster_tote_bag-r5d5b1b386e5549fabd6bd96f9b302f8f_v9wtl_8byvr_324.jpg',
+      title: 'Camera - Tote',
+      information: 'dajfdajlfhjadhfljadhfljadh.',
+      availability: true
+    },
+    {
+      price: 17.99,
+      pictureUrl: 'http://rlv.zcache.co.uk/grandma_mustache_jumbo_tote_bag-r07a89430ea2444b7ae4111bc905616e8_v9w72_8byvr_324.jpg',
+      title: 'Grandma  - Tote',
+      information: 'djsfhljsdhflsdh.',
+      availability: true
+    },
+    {
+      price: 25.99,
+      pictureUrl: 'http://rlv.zcache.com/hipster_iceland_tote_bag-rd9f0535593b8436db71d765a8495bc18_v9w6h_8byvr_512.jpg',
+      title: 'Iceland Glasses - Tote',
+      information: "A revolutionary tote, sporting some trendy glasses that'll let people know that you woke af.",
+      availability: true
+    },
+    {
+      price: 25.99,
+      pictureUrl: 'http://rlv.zcache.com/hipster_cat_tote_bag-rd81273a7c6034e32b3e642a694dafccd_v9w6h_8byvr_324.jpg',
+      title: 'Cat Glasses - Tote',
+      information: "A revolutionary tote, sporting some trendy glasses that'll let people know that you woke af.",
       availability: true
     }
   ]

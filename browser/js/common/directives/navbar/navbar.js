@@ -13,9 +13,9 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       scope.cartItems = []
       scope.items = [
         { label: 'Home', state: 'home' },
-        { label: 'About', state: 'about' },
-        { label: 'Documentation', state: 'docs' },
-        { label: 'Members Only', state: 'membersOnly', auth: true }
+        { label: 'Products', state: 'viewProducts' },
+        { label: 'Category', state: 'category' }
+      // { label: 'Members Only', state: 'membersOnly', auth: true }
       ]
       scope.showCart = false
       scope.toggleCart = function () {

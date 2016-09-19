@@ -1,16 +1,14 @@
 .product-spacing {
     width: 80%;
+    margin-top: 10px;
     margin: 0 auto;
-
     img {
         margin-bottom: 0;
     }
-
     h5 {
         margin-top: 0em;
         margin-bottom: 0;
     }
-
     h6 {
         margin-top: .5em;
     }
@@ -19,6 +17,8 @@
 .product-preview {
     position: relative;
     width: 100%;
+    border: 1px solid yellow;
+    margin-bottom: auto;
 
     .btn {
         // color: black;
@@ -32,13 +32,20 @@
     }
 }
 
+.centered {
+    position: absolute;
+    margin-left: 5em;
+    top: 50%;
+    left: 0%;
+    right: 0%;
+    transform: translate(0, 0);
+}
+
 .product-preview:hover {
-    border: 1px solid gray;
-
+    // border: 1px solid gray;
     .btn {
-        display: block;
+        display: inline;
     }
-
     .product-spacing {
         opacity: .3;
     }
