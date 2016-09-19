@@ -43,6 +43,7 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
 
 router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
   // expecting incoming req.body.productsData = [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
+  console.log('getting into post order route........')
   let settingProductAndQuantity = []
   let productsData = req.body.productsData.sort((a, b) => a.id - b.id) // sort all elements id in acending order
   let newProductID = productsData.map(data => data.id)
@@ -67,6 +68,7 @@ router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
       return Promise.all(settingProductAndQuantity)
     })
     .then(function () {
+      console.log('order place Successful...........')
       res.status(200).send({message: 'Successful post of order!'})
     }).catch(next)
 })

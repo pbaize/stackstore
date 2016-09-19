@@ -6,6 +6,14 @@ app.factory('OrderFactory', function ($http, $log, $q) {
         .catch(function () {
           $q.reject({order: null})
         })
+    },
+    checkout: function (products) {
+      // re-format the data before firing the ajax request
+      let datas = products.map(product => {
+        return {id: product.id, quantity: product.product_cart.quantity}
+      })
+      console.log('sending the order..........', datas)
+      return $http.post('/api/order/newOrder', {productsData: datas})
     }
   }
 })
