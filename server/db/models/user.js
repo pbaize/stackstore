@@ -46,6 +46,10 @@ var User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  passwordReset: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   instanceMethods: {
@@ -57,6 +61,12 @@ var User = db.define('user', {
     },
     checkAdmin: function () {
       return this.isAdmin === true
+    },
+    changePassword: function (newPassword) {
+      this.password = newPassword
+    },
+    changeAdmin: function (adminStatus) {
+      this.isAdmin = adminStatus
     }
   },
   classMethods: {

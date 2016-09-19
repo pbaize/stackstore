@@ -142,7 +142,9 @@ router.post('/:id', ensureAuthenticated, function (req, res, next) {
       console.log('Cart Id: ' + foundCart.id)
       myCart = foundCart
       return Products.findOne({
-        id: addId
+        where: {
+          id: addId
+        }
       })
     })
     .then(function (foundProduct) {
