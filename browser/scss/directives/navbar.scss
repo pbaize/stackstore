@@ -112,7 +112,6 @@ navbar {
 }
 
 #logoRow {
-    margin-top: -3em;
     margin-left: 0;
 }
 
@@ -125,15 +124,9 @@ navbar {
 #cartRowStuff {
     max-width: 50%;
     margin: 0 auto;
-    button {
-        font-size: 1em;
-        width: 25%;
-    }
-    z-index: 2;
 }
 
 #userRowStuff {
     width: 50%;
     margin: 0 auto;
-    z-index: 3;
 }

@@ -12,6 +12,12 @@ body {
   overflow: hidden;
 }
 
+#adminStuff {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 // body div {
 // 	border: 1px solid red
