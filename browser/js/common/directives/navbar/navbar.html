@@ -3,6 +3,7 @@
 <nav class="navbar navbar-static-top">
     <div class="container">
         <div class="row topnav">
+        <div class="col-6">
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.email }}!</span>
                 <a ng-click="logout()">Logout</a>
@@ -11,6 +12,8 @@
             <div ng-show="user" class="userSettings">
 
             </div>
+            </div>
+            <div class="col-6">
             <!-- <fullstack-logo class="pull-left"></fullstack-logo> -->
             <div class="navgroup pull-right">
                 <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Sign Up</button>
@@ -18,9 +21,12 @@
                 <button class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
                 <button class="btn btn-primary" id="order" ng-show="user" ng-click="toggleOrder()">Order</button>
             </div>
+            </div>
+            <div class="row col-12" id="logoRow">
             <a ui-sref="home"><img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png"></a>
+            </div>
         </div>
-        <div class="row lowernav">
+        <div class="row col-12 lowernav" id="lowerNavRow">
             <ul class="nav">
                 <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
                     <div>

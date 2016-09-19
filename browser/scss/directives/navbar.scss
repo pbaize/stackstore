@@ -1,5 +1,5 @@
 
-$logosize: 15%;
+$logosize: 10%;
 
 navbar {
     display: block;
@@ -88,11 +88,6 @@ navbar {
         }
     }
 
-    .lowernav {
-        width: 100%;
-        // position: relative;
-    }
-
     .nav {
         // left: 12%;
         list-style: none;
@@ -113,4 +108,15 @@ navbar {
         // max-height: 100%;
 
     }
+}
+
+#logoRow {
+    margin-top: -3em;
+    margin-left: 0;
+}
+
+#lowerNavRow {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: .5em;
 }
