@@ -4,9 +4,7 @@
             <h2> X </h2>
         </div>
     </div>
-    <div class="container cart-view center" style=" overflow-x: scroll;">
-        <order-item ng-repeat="item in orderItems" ></order-item>
-
-
+    <div class="container cart-view center" style=" overflow-x: hidden; overflow-y: auto; height: 70%">
+        <order-item ng-repeat="item in orderItems"></order-item>
     </div>
 </div>
