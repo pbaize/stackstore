@@ -5,14 +5,56 @@
         </div>
     </div>
     <div class="container cart-view center" style="overflow-x: hidden; overflow-y: auto; height: 70%">
-        <cart-item ng-repeat="item in cartItems" item="item"></cart-item>
+<<<<<<< HEAD
+        <div ng-show="checkNow">
+
+            <script src="https://checkout.stripe.com/checkout.js"></script>
+            <button id="customButton" ng-click="checkout()" >Purchase</button>
+            <script>
+            var handler = StripeCheckout.configure({
+                key: 'pk_test_iHcdgk0DmlLGuXHNmbscSxlf',
+                image: 'http://s13.postimg.org/z8aclrl1z/largelogo.png',
+                locale: 'auto',
+                token: function(token) {
+                    console.log(token.id)
+                    // You can access the token ID with `token.id`.
+                    // Get the token ID to your server-side code for use.
+                }
+            });
+
+            var trigger = document.getElementById('customButton')
+            trigger.addEventListener('click', function(e) {
+
+                // Open Checkout with further options:
+                handler.open({
+                    name: 'Hipster&Co.',
+                    description: '2 widgets',
+                    amount: 'getTotal()'
+                });
+
+                e.preventDefault()
+            })
+
+            // Close Checkout on page navigation:
+            window.addEventListener('popstate', function() {
+                handler.close();
+
+            });
+            </script>
+        </div>
+        <cart-item ng-show="!checkNow" ng-repeat="item in cartItems" item="item"></cart-item>
+
+       <!--  <cart-item ng-repeat="item in cartItems" item="item"></cart-item> -->
+
     </div>
     <div class="container cart-view row col-12" id="price-center">
         <h5>Total Price:  {{ getTotal() | currency}}</h5>
         <button ng-show="getTotal() > 0" ng-click="checkout()">Checking Out</button>
     </div>
+
 <!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
 <li><a href="#docs" data-speed="1000" class="menuLink scroll">Docs</a></li> -->
 <!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
 <!-- </div> -->
+
 </div>
