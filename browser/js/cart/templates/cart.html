@@ -6,9 +6,7 @@
     </div>
     <div class="container cart-view center" style="overflow-x: hidden; overflow-y: auto; height: 70%">
         <div ng-show="checkNow">
-
-            <script src="https://checkout.stripe.com/checkout.js"></script>
-            <button id="customButton" ng-click="checkout()" >Purchase</button>
+                        <button id="customButton" ng-click="checkout()">Purchase</button>
             <script>
             var handler = StripeCheckout.configure({
                 key: 'pk_test_iHcdgk0DmlLGuXHNmbscSxlf',
@@ -16,10 +14,9 @@
                 locale: 'auto',
                 token: function(token) {
                     console.log(token.id)
-                    // You can access the token ID with `token.id`.
-                    // Get the token ID to your server-side code for use.
+
                 }
-            });
+            })
 
             var trigger = document.getElementById('customButton')
             trigger.addEventListener('click', function(e) {
@@ -29,7 +26,7 @@
                     name: 'Hipster&Co.',
                     description: '2 widgets',
                     amount: 'getTotal()'
-                });
+                })
 
                 e.preventDefault()
             })
@@ -38,7 +35,7 @@
             window.addEventListener('popstate', function() {
                 handler.close();
 
-            });
+            })
             </script>
         </div>
         <cart-item ng-show="!checkNow" ng-repeat="item in cartItems" item="item"></cart-item>
@@ -48,7 +45,8 @@
     </div>
     <div class="container cart-view row col-12" id="price-center">
         <h5>Total Price:  {{ getTotal() | currency}}</h5>
-        <button ng-show="getTotal() > 0" ng-click="checkout()">Checking Out</button>
+        <button ng-show="getTotal() > 0 && !checkNow" ng-click="toggleCheckout()">Checking Out</button>
+        <!-- <button ng-show="getTotal() > 0" ng-click="toggleCheckout()">Checking Out</button> -->
     </div>
 
 <!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>

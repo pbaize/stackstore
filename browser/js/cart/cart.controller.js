@@ -12,7 +12,7 @@ app.controller('CartCtrl', function ($rootScope, $scope, $state, CartFactory, Or
     return total
   }
   $scope.$on('cartUpdate', $scope.getTotal)
-
+  $scope.checkNow = false
   // checkout all the product in the cart, use cartfactory firing
   // an ajax request hit the post order route with all the products info
   $scope.checkout = function () {
@@ -28,5 +28,9 @@ app.controller('CartCtrl', function ($rootScope, $scope, $state, CartFactory, Or
         $rootScope.$broadcast('cartUpdate')
         console.log('Success Clearing Cart.')
       })
+  }
+
+  $scope.toggleCheckout = function () {
+    $scope.checkNow = !$scope.checkNow
   }
 })
