@@ -1,8 +1,15 @@
 <div id="admin-chats-container">
-    <div id="admin-chats-header">
-        <div id="admin-chats-leftside">
+    <div id="admin-chats-header" class="row">
+    </div>
+    <div id="admin-chats-sides" class="row">
+        <div id="admin-chats-leftside" class="col-6">
+            <div ng-repeat="chats in allLiveDiscussions">
+                <div class="admin-chat-container">
+                    <h5>{{chats.userName}}</h5>
+                </div>
+            </div>
         </div>
-        <div id="admin-chats-rightside">
+        <div id="admin-chats-rightside" class="col-6">
         </div>
     </div>
 </div>

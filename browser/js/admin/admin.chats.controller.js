@@ -16,5 +16,7 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
   $rootScope.socket.on('currentclients', function (allClients) {
     console.log('ADMIN: Recieved all chats.')
     $scope.allLiveDiscussions = allClients
+    console.log(allClients)
+    $scope.$evalAsync()
   })
 })
