@@ -1,0 +1,25 @@
+<div id="chat-container" ng-show="chatShow && initialAuth">
+    <div id="chat-box">
+        <div id="chat-box-head">
+            A Hipster
+            <div id="chat-close" class="pull-right" ng-click="toggleChat()">X
+            </div>
+        </div>
+        <div id="chat-box-content">
+            <message ng-repeat="message in conversation" message="message"></message>
+        </div>
+        <div id="chat-box-entry">
+            <form name="thechat" ng-submit="thechat.$valid && sendMessage(msg.message)" novalidate>
+                <input id="chat-entry" ng-model="msg.message" ng-minlength='1' ng-required='true'></input>
+                <button id="chat-submit" type="submit"></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="chat-ph-container" ng-show="!chatShow && initialAuth">
+    <div id="chat-placeholder">
+        A Hipster
+        <div class="pull-right" id="chat-close" ng-click="toggleChat()">O
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
-module.exports = function getAll (db) {
+module.exports = function getAll (db, param) {
   return function (req, res, next) {
-    db.findAll()
+    db.findAll(param)
       .then(data => res.send(data))
       .catch(console.log)
   }

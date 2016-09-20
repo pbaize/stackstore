@@ -1,9 +1,11 @@
-app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state, Socket, ChatFactory) {
   return {
     restrict: 'E',
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
+      $rootScope.socket = Socket
+
       scope.cartItems = []
 
       CartFactory.fetchAll()
@@ -28,6 +30,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       scope.toggleCart = function () {
         CartFactory.fetchAll()
           .then(cart => {
+            ChatFactory.minimizeClientChat()
             scope.cartItems = cart.products
             scope.showCart = !scope.showCart
           })
@@ -91,6 +94,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
 
       scope.logout = function () {
         AuthService.logout().then(function () {
+          ChatFactory.hideClientChat()
           $state.go('home')
         })
       }
@@ -98,6 +102,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           if (user) {
+            $rootScope.socket.emit('authenticated', user.email)
             scope.user = user.email
             $rootScope.userName = user.email
           }

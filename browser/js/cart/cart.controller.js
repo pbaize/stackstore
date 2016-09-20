@@ -11,23 +11,13 @@ app.controller('CartCtrl', function ($rootScope, $scope, $state, CartFactory, Or
     }
     return total
   }
-  // $window.streetName = $scope.getTotal
-  // $window.streetName = $scope.getTotal
   $scope.$on('cartUpdate', $scope.getTotal)
-
-  $scope.checkNow = false
-
-  $scope.toggleCheckout = function () {
-    $scope.checkNow = !$scope.checkNow
-  }
 
   // checkout all the product in the cart, use cartfactory firing
   // an ajax request hit the post order route with all the products info
   $scope.checkout = function () {
     OrderFactory.checkout($scope.cartItems)
-
       .then(function (newOrder) {
-        console.log(newOrder)
         $scope.showCart = !$scope.showCart
         if ($rootScope.userName) {
           $scope.toggleOrder()
