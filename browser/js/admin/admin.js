@@ -53,12 +53,17 @@ app.config(function ($stateProvider) {
     resolve: {},
     controller: ($scope, AdminFactory, $stateParams) => {
       const view = 'orders'
-      AdminFactory.getAll(view)
+      const refresh = () => AdminFactory.getAll(view)
         .then(data => {
           console.log(data)
           $scope.data = data
         })
+      refresh()
       $scope.query = $stateParams.query || ''
+      $scope.saveOrder = function (id, status) {
+        AdminFactory.updateOne(view, id, {status})
+          .then(() => $scope.$evalAsync(refresh))
+      }
     }
   })
 })
@@ -73,5 +78,8 @@ app.factory('AdminFactory', function ($http) {
     return $http.get('api/admin/' + type)
       .then(res => res.data)
   }
-  return {checkAdmin, getAll}
+  function updateOne (type, id, body) {
+    return $http.put('api/admin/' + type + '/' + id, body)
+  }
+  return {checkAdmin, getAll, updateOne}
 })

@@ -1,22 +1,24 @@
 <div class="pull-right" style="width:30%"><label>Search<input type="text" ng-model="search" ></label></div>
 <h1>Products</h1>
-<table style="width: 100%">
+<table style="width: 100%;">
 	<thead>
 		<tr>
 			<th>Id</th>
-			<th>Email</th>
-			<th>Orders</th>
-			<th>Make Admin</th>
-			<th>Password Reset</th>
+			<th>Product Image</th>
+			<th>Description</th>
+			<th>Categories</th>
+			<th>Availability</th>
 			<th>Delete</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="user in data|filter:{$: search, id:query}">
-			<td>{{user.id}}</td>
-			<td>{{user.email}}</td>
-			<td><a ui-sref="admin.orders({query: user.id})">view</a></td>
-			<td><a href="" ng-click="makeAdmin(user.id)">Make Admin</a></td>
-			<td><a href="" ng-click="forceReset(user.id)">Password Reset</a></td>
-			<td><button class="btn" ng-click="delete(user.id)">X</button></td>
-	</tr>
+	<div style="overflow: auto; height: 60%; background-color: red;">
+		<tr ng-repeat="product in data|filter:{$: search, id:query}">
+			<td>{{product.id}}</td>
+			<td><img src="{{product.pictureUrl}}" class="max-full-width"></td>
+			<td>{{product.information}}</td>
+			<td><a href="" ng-click="makeAdmin(product.id)">Make Admin</a></td>
+			<td><a href="" ng-click="forceReset(product.id)">Password Reset</a></td>
+			<td><button class="btn" ng-click="delete(product.id)">X</button></td>
+		</tr>
+	</div>
 </table>
