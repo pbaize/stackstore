@@ -99,7 +99,7 @@ module.exports = function (server) {
           if (result) {
             console.log('Approved to send chat message.')
             let sendingTo = findSID(data.user)
-            io.sockets.socket(sendingTo).emit('servermessage', data.message)
+            io.sockets.connected[sendingTo].emit('servermessage', data.message)
           } else {
             console.log('Not an admin! Cannot send chat messages.')
           }
