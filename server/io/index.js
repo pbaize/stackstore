@@ -39,6 +39,12 @@ module.exports = function (server) {
     // Disconnect
     socket.on('disconnect', function () {
       console.log(socket.id + ' disconnected from server.')
+      for (var i = 0; i < userStorage.length; i++) {
+        if (userStorage[i].userId === socket.id) {
+          userStorage.splice(i, 1)
+          console.log('Clearing user from live connections.')
+        }
+      }
     })
 
     // Events
@@ -52,7 +58,8 @@ module.exports = function (server) {
             socket.emit('openchat')
             let msgContent = {
               message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
-              user: 'A Hipster'
+              user: 'A Hipster',
+              timestamp: new Date()
             }
             socket.emit('servermessage', msgContent)
             userStorage[i].chatHistory.push(msgContent)
@@ -69,7 +76,7 @@ module.exports = function (server) {
       for (var i = 0; i < userStorage.length; i++) {
         if (userStorage[i].userId === socket.id) {
           userStorage[i].chatHistory.push(msgContent)
-          console.log('Recieved Msg - ' + userStorage[i].userName + ': ' + msgContent.message + ' ' + msgContent.timestamp)
+          console.log('Recieved Msg - ' + userStorage[i].userName + ': ' + msgContent.message + ' | ' + msgContent.timestamp)
           break
         } else {
           if (i === userStorage.length - 1) {
@@ -95,6 +102,28 @@ module.exports = function (server) {
             io.sockets.socket(sendingTo).emit('servermessage', data.message)
           } else {
             console.log('Not an admin! Cannot send chat messages.')
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+    })
+
+    socket.on('adminauth', function (data) {
+      User.findOne({
+        where: {
+          id: data.id
+        }
+      })
+        .then(function (myUser) {
+          return myUser.checkAdmin()
+        })
+        .then(function (result) {
+          if (result) {
+            socket.emit('currentclients', userStorage)
+            console.log('Sending down current list of connected clients.')
+          } else {
+            console.log('Unauthorized user attempting admin socket access.')
           }
         })
         .catch(function (error) {

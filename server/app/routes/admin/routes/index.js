@@ -8,6 +8,7 @@ router.use('/reviews', require('./reviews'))
 router.use('/users', require('./users.js'))
 router.use('/orders', require('./orders.js'))
 router.use('/category', require('./category.js'))
+router.use('/chats', require('./chats'))
 router.get('/', (req, res, next) => {
   console.log('isAdmin')
   res.send({show: true})
