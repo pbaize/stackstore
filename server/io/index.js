@@ -1,8 +1,21 @@
 'use strict'
 var socketio = require('socket.io')
+const db = require('../db')
+const User = db.model('user')
 var io = null
 const userStorage = []
 let userTotal = 0
+
+function findSID (aUser) {
+  for (var i = 0; i < userStorage.length; i++) {
+    if (userStorage[i].userName === aUser) {
+      console.log('socketId found for ' + aUser)
+      return userStorage[i].userId
+    }
+  }
+  console.log('socketId not found.')
+  return 0
+}
 
 module.exports = function (server) {
   if (io) return io
@@ -64,6 +77,29 @@ module.exports = function (server) {
           }
         }
       }
+    })
+
+    socket.on('adminmessage', function (data) {
+      User.findOne({
+        where: {
+          id: data.id
+        }
+      })
+        .then(function (myUser) {
+          return myUser.checkAdmin()
+        })
+        .then(function (result) {
+          if (result) {
+            console.log('Approved to send chat message.')
+            let sendingTo = findSID(data.user)
+            io.sockets.socket(sendingTo).emit('servermessage', data.message)
+          } else {
+            console.log('Not an admin! Cannot send chat messages.')
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
     })
   })
 
