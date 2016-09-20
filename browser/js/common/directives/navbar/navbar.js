@@ -1,9 +1,11 @@
-app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state, Socket) {
   return {
     restrict: 'E',
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
+      $rootScope.socket = Socket
+
       scope.cartItems = []
 
       CartFactory.fetchAll()
@@ -98,6 +100,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           if (user) {
+            $rootScope.socket.emit('authenticated', user.email)
             scope.user = user.email
             $rootScope.userName = user.email
           }
