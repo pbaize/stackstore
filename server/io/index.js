@@ -35,6 +35,10 @@ module.exports = function (server) {
         for (var i = 0; i < userStorage.length; i++) {
           if (userStorage[i].userId === socket.id) {
             userStorage[i].userName = username
+            socket.emit('servermessage', {
+              message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
+              user: 'A Hipster'
+            })
             break
           }
           if (i === userStorage.length - 1) {
