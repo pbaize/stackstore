@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('CartCtrl', function ($scope, $state, CartFactory, OrderFactory, $log) {
+app.controller('CartCtrl', function ($rootScope, $scope, $state, CartFactory, OrderFactory, $log) {
   $scope.getTotal = function () {
     var total = 0
     for (let i = 0; i < $scope.cartItems.length; i++) {
@@ -19,10 +19,13 @@ app.controller('CartCtrl', function ($scope, $state, CartFactory, OrderFactory, 
     OrderFactory.checkout($scope.cartItems)
       .then(function (newOrder) {
         $scope.showCart = !$scope.showCart
-        $scope.toggleOrder()
+        if ($rootScope.userName) {
+          $scope.toggleOrder()
+        }
         return CartFactory.clearCart()
       })
       .then(function (clearedCart) {
+        $rootScope.$broadcast('cartUpdate')
         console.log('Success Clearing Cart.')
       })
   }

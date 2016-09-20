@@ -4,13 +4,20 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
+      scope.cartItems = []
+
+      CartFactory.fetchAll()
+        .then(cart => {
+          scope.cartItems = cart.products
+        })
+
       scope.$on('cartUpdate', () => {
         CartFactory.fetchAll()
           .then(cart => {
             scope.cartItems = cart.products
           })
       })
-      scope.cartItems = []
+
       scope.items = [
         { label: 'Home', state: 'home' },
         { label: 'Products', state: 'viewProducts' },
@@ -90,7 +97,10 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
 
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
-          scope.user = user
+          if (user) {
+            scope.user = user.email
+            $rootScope.userName = user.email
+          }
         })
       }
 
