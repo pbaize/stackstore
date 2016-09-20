@@ -35,6 +35,7 @@ module.exports = function (server) {
         for (var i = 0; i < userStorage.length; i++) {
           if (userStorage[i].userId === socket.id) {
             userStorage[i].userName = username
+            socket.emit('openchat')
             socket.emit('servermessage', {
               message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
               user: 'A Hipster'
@@ -46,10 +47,6 @@ module.exports = function (server) {
           }
         }
       }
-    })
-
-    socket.on('chatloaded', function () {
-      socket.emit('openchat')
     })
   })
 

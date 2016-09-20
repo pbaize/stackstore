@@ -1,4 +1,4 @@
-<div id="chat-container" ng-show="chatShow">
+<div id="chat-container" ng-show="chatShow && initialAuth">
     <div id="chat-box">
         <div id="chat-box-head">
             A Hipster
@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<div id="chat-ph-container" ng-show="!chatShow">
+<div id="chat-ph-container" ng-show="!chatShow && initialAuth">
     <div id="chat-placeholder">
         A Hipster
         <div class="pull-right" id="chat-close" ng-click="toggleChat()">O
