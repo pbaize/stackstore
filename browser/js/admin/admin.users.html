@@ -11,7 +11,7 @@
 			<th>Delete</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="user in data|filter:{$: search, id:query}">
+	<tr ng-repeat="user in data|filter:{$: search, id:query}| orderBy:'id'">
 			<td>{{user.id}}</td>
 			<td>{{user.email}}</td>
 			<td><a ui-sref="admin.orders({query: user.id})">view</a></td>

@@ -31,20 +31,15 @@ app.config(function ($stateProvider) {
           $scope.data = data
         })
       $scope.query = $stateParams.query || ''
-    }
-  })
-  $stateProvider.state('admin.products', {
-    url: '/products?query',
-    templateUrl: 'js/admin/admin.products.html',
-    resolve: {},
-    controller: ($scope, AdminFactory, $stateParams) => {
-      const view = 'products'
-      AdminFactory.getAll(view)
-        .then(data => {
-          console.log(data)
-          $scope.data = data
-        })
-      $scope.query = $stateParams.query
+      function updateUser (id, update) {
+        return AdminFactory.updateOne(view, id, update)
+      }
+      $scope.makeAdmin = function (id) {
+        return updateUser(id, {isAdmin: true})
+      }
+      $scope.forceReset = function (id) {
+        return updateUser(id, {passwordReset: true})
+      }
     }
   })
   $stateProvider.state('admin.orders', {
@@ -66,6 +61,46 @@ app.config(function ($stateProvider) {
       }
     }
   })
+  $stateProvider.state('admin.products', {
+    url: '/products?query',
+    templateUrl: 'js/admin/admin.products.html',
+    resolve: {},
+    controller: ($scope, AdminFactory, $stateParams, $state) => {
+      const view = 'products'
+      AdminFactory.getAll(view)
+        .then(data => {
+          console.log(data)
+          $scope.data = data
+        })
+      $scope.query = $stateParams.query
+      $scope.edit = id => $state.go('admin.editProduct', {id: id})
+    }
+  })
+  $stateProvider.state('admin.editProduct', {
+    url: '/admin/product/:id/edit',
+    templateUrl: 'js/admin/admin.editProduct.html',
+    resolve: {
+      product: function ($stateParams, AdminFactory) {
+        let id = $stateParams.id
+        return AdminFactory.getOne('products', id)
+      }
+    },
+    controller: ($scope, AdminFactory, product, $state, $stateParams) => {
+      const view = 'products'
+      console.log(product)
+      $scope.product = product
+      $scope.toggleAvailability = () => {
+        $scope.product.availability = !$scope.product.availability
+      }
+      $scope.discard = () => {
+        $state.reload()
+      }
+      $scope.save = () => {
+        AdminFactory.updateOne(view, $stateParams.id, $scope.product)
+          .then(() => $state.reload())
+      }
+    }
+  })
 })
 
 app.factory('AdminFactory', function ($http) {
@@ -81,5 +116,8 @@ app.factory('AdminFactory', function ($http) {
   function updateOne (type, id, body) {
     return $http.put('api/admin/' + type + '/' + id, body)
   }
-  return {checkAdmin, getAll, updateOne}
+  function getOne (type, id) {
+    return $http.get('api/admin/' + type + '/' + id).then(res => res.data)
+  }
+  return {checkAdmin, getAll, updateOne, getOne}
 })

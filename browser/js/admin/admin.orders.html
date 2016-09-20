@@ -10,7 +10,7 @@
 			<th>save</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="order in data|filter:{$: search, userId:query}" ng-form="orderstatus">
+	<tr ng-repeat="order in data|filter:{$: search, userId:query}| orderBy:'-id'" ng-form="orderstatus">
 		<td>{{order.id}}</td>
 		<td><a ui-sref="admin.users({query:order.userId})">{{order.userId}}</a></td>
 		<td>
