@@ -61,6 +61,11 @@ app.config(function ($stateProvider) {
       }
     }
   })
+  $stateProvider.state('admin.chat', {
+    url: '/admin/chats',
+    templateUrl: 'js/admin/admin.chats.html',
+    controller: 'AdminChatCtrl'
+  })
   $stateProvider.state('admin.products', {
     url: '/products?query',
     templateUrl: 'js/admin/admin.products.html',
