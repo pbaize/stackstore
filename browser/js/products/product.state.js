@@ -27,7 +27,7 @@ app.controller('ProductsCtrl', function ($scope, allProducts, CartFactory) {
   $scope.products = allProducts
 })
 
-app.controller('ProductCtrl', function ($scope, product, CartFactory, $rootScope) {
+app.controller('ProductCtrl', function ($scope, product, CartFactory, $rootScope, AuthService) {
   console.log('single product', product)
   $scope.product = product
   $scope.addToCart = function () {
@@ -38,5 +38,9 @@ app.controller('ProductCtrl', function ($scope, product, CartFactory, $rootScope
       }).catch(function (err) {
         console.log(err)
       })
+  }
+
+  $scope.logginStatus = function () {
+    return AuthService.isAuthenticated()
   }
 })

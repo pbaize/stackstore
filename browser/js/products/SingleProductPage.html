@@ -16,13 +16,13 @@
             <div class="col-12">
             <hr class="style-seven">
             <h1>Reviews</h1>
+            <p ng-show="product.reviews.length===0">No review yet</p>
             <div ng-repeat="review in product.reviews">
             <p><strong>{{review.title}}</strong> &nbsp Score : {{review.score}}</p>
             <p> by {{review.author}}</p>
             <p>{{review.comment}}</p>
             </div>
-
-            <input-review product="product.product"></input-review>
+            <input-review ng-show="{{logginStatus()}}" product="product.product"></input-review>
 
             </div>
         </div>
