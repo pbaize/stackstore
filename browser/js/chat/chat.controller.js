@@ -19,11 +19,19 @@ app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
 
   $rootScope.socket.on('servermessage', function (msgContent) {
     console.log('Recieving message!')
-    $scope.addMessage(msgContent.message, msgContent.user)
+    addMessage(msgContent.message, msgContent.user)
   })
 
-  $scope.addMessage = function (message, user) {
+  let addMessage = function (message, user) {
     $scope.conversation.push({user: user, message: message, timestamp: new Date()})
     $scope.$evalAsync()
+  }
+
+  $scope.sendMessage = function (message) {
+    $scope.thechat.$setPristine()
+    $scope.msg = null
+    $scope.conversation.push({user: 'You', message: message, timestamp: new Date()})
+    $scope.$evalAsync()
+    $rootScope.socket.emit('clientmessage', {message: message, timestamp: new Date()})
   }
 })

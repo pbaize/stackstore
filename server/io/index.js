@@ -18,7 +18,8 @@ module.exports = function (server) {
     userStorage.push({
       userNum: userTotal,
       userId: socketId,
-      userIP: clientIp
+      userIP: clientIp,
+      chatHistory: []
     })
     console.log('Connection #' + userTotal + ' using socket ' + socketId + ' incoming connection from ' + clientIp + '.')
 
@@ -36,15 +37,25 @@ module.exports = function (server) {
           if (userStorage[i].userId === socket.id) {
             userStorage[i].userName = username
             socket.emit('openchat')
-            socket.emit('servermessage', {
+            let msgContent = {
               message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
               user: 'A Hipster'
-            })
+            }
+            socket.emit('servermessage', msgContent)
+            userStorage[i].chatHistory.push(msgContent)
             break
           }
           if (i === userStorage.length - 1) {
             userStorage[i].userName = 'Session User'
           }
+        }
+      }
+    })
+
+    socket.on('clientmessage', function (msgContent) {
+      for (var i = 0; i < userStorage.length; i++) {
+        if (userStorage[i].userId === socket.id) {
+          userStorage[i].chatHistory.push(msgContent)
         }
       }
     })
