@@ -3,7 +3,7 @@
 }
 
 #admin-chats-header {
-
+    max-height: 10vh;
 }
 
 #admin-chats-sides {
@@ -11,7 +11,8 @@
 }
 
 #admin-chats-leftside {
-
+    max-height: 80vh;
+    height: 80vh;
 }
 
 .admin-chat-container {
@@ -19,5 +20,42 @@
 }
 
 #admin-chats-rightside {
+    max-height: 80vh;
+    height: 80vh;
+}
+
+#admin-chats-footer {
+    max-height: 10vh;
+}
+
+#chat-box-admin-entry {
+    width: 100%;
+    max-height: 3em;
+}
+
+#chat-admin-entry {
+    width: 90%;
+    max-height: 2em;
+    height: 100%;
+    border: solid 1px palegoldenrod;
+    background-color: white;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#chat-admin-submit {
+    bottom: 0;
+    width: 10%;
+    max-height: 2em;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: palegoldenrod;
+    border-radius: 0;
+    height: 100%;
+    transform: translate(0,0);
 
 }
