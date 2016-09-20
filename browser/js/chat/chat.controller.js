@@ -3,10 +3,19 @@
 app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
   $scope.initialAuth = false
   $scope.chatShow = false
+  $scope.norconversation = []
   $scope.conversation = []
   $scope.toggleChat = function () {
     $scope.chatShow = !$scope.chatShow
   }
+
+  $scope.$on('hideChat', function () {
+    $scope.initialAuth = false
+  })
+
+  $scope.$on('minimizeChat', function () {
+    $scope.chatShow = false
+  })
 
   $rootScope.socket.emit('chatloaded')
 
@@ -23,14 +32,14 @@ app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
   })
 
   let addMessage = function (message, user) {
-    $scope.conversation.push({user: user, message: message, timestamp: new Date()})
+    $scope.conversation.unshift({user: user, message: message, timestamp: new Date()})
     $scope.$evalAsync()
   }
 
   $scope.sendMessage = function (message) {
     $scope.thechat.$setPristine()
     $scope.msg = null
-    $scope.conversation.push({user: 'You', message: message, timestamp: new Date()})
+    $scope.conversation.unshift({user: 'You', message: message, timestamp: new Date()})
     $scope.$evalAsync()
     $rootScope.socket.emit('clientmessage', {message: message, timestamp: new Date()})
   }
