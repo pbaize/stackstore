@@ -9,9 +9,15 @@ body {
 }
 
 .row {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
+#adminStuff {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 // body div {
 // 	border: 1px solid red
@@ -25,6 +31,11 @@ body {
 }
 .max-full-width {
   max-width: 100%;
+  box-sizing: border-box;
+}
+
+.max-full-height {
+  max-height: 100%;
   box-sizing: border-box;
 }
 

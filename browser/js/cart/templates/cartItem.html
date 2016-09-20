@@ -1,23 +1,23 @@
 <div class="row cart-item">
     <div class="col-2">
         <div class="img-container">
-            <img ng-src={{item.pictureUrl}} class="max-full-width">
+            <img id="cart-image" ng-src={{item.pictureUrl}} class="max-full-width">
         </div>
     </div>
-    <div class="col-4" style="margin-top: 5em">
+    <div class="col-4" id="row-info">
         <h5>{{item.title}}</h5>
     </div>
-    <div class="col-1" style="margin-top: 5em">
+    <div class="col-1" id="row-info">
         <h5>{{ item.price | currency }}</h5>
     </div>
-    <div class="col-1" style="margin-top: 5em">
+    <div class="col-1" id="row-info">
         <h5>{{item.product_cart.quantity}}</h5>
     </div>
-    <div class="col-2" style="margin-top: 5em">
+    <div class="col-2" id="row-info">
         <button ng-click="decrement(item.id)">-</button>
         <button ng-click="increment(item.id)">+</button>
     </div>
-    <div class="col-2" style="margin-top: 5em">
+    <div class="col-2" id="row-info">
         <button ng-click="removeFromCart(item.id)">X</button>
     </div>
 </div>

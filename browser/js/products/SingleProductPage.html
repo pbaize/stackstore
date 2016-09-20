@@ -1,15 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <img ng-src={{product.product.pictureUrl}}>
+            <img id="singleProductImg" ng-src={{product.product.pictureUrl}}>
         </div>
-        <div class="col-6">
+        <div id="singleProductInfo" class="col-6">
             <h1>{{product.product.title}}</h1>
             <h5>{{product.product.information}}</h5>
-            <h6>{{product.product.availability}}</h6>
+            <h6 ng-show="product.product.availability">This item is currently available!</h6>
+            <h6 ng-show="!product.product.availability">This item is not currently available.</h6>
             <h5>{{ product.product.price | currency }}</h5>
             </div>
-            <div class="row">
+            </div>
+            <div class="row" id="reviewsBottom">
             <div class="col-12">
             <hr class="style-seven">
             <h1>Reviews</h1>

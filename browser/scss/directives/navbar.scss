@@ -5,7 +5,7 @@ navbar {
     display: block;
     width: 100%;
     background: white;
-    margin-bottom: 100px ;
+    margin-bottom: 1em;
     // border-bottom: 1px solid black;
     @import "cart";
     .container {
@@ -15,21 +15,19 @@ navbar {
         margin: 0px;
     }
 
-    fullstack-logo {
-        display: block;
-        margin-top: 5px;
-        width: 5%;
-    }
-
     #largelogo {
         display: block;
-        margin-left: 50% - $logosize / 2;
-        width: $logosize;
+        margin: 0 auto;
+        width: 7.5em;
+        height: 7.5em;
+        margin-top: 2em;
     }
+
 
     a {
         color: black;
-        font-size: 16px;
+        font-size: 1.25em;
+        text-decoration: none;
     }
 
     .nav > li a {
@@ -91,11 +89,6 @@ navbar {
         }
     }
 
-    .lowernav {
-        width: 100%;
-        // position: relative;
-    }
-
     .nav {
         // left: 12%;
         list-style: none;
@@ -116,4 +109,24 @@ navbar {
         // max-height: 100%;
 
     }
+}
+
+#logoRow {
+    margin-left: 0;
+}
+
+#lowerNavRow {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: .5em;
+}
+
+#cartRowStuff {
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+#userRowStuff {
+    width: 50%;
+    margin: 0 auto;
 }
