@@ -19,7 +19,9 @@ app.controller('CartCtrl', function ($rootScope, $scope, $state, CartFactory, Or
     OrderFactory.checkout($scope.cartItems)
       .then(function (newOrder) {
         $scope.showCart = !$scope.showCart
-        $scope.toggleOrder()
+        if ($rootScope.userName) {
+          $scope.toggleOrder()
+        }
         return CartFactory.clearCart()
       })
       .then(function (clearedCart) {

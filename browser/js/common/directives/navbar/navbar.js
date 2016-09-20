@@ -97,7 +97,10 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
 
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
-          scope.user = user
+          if (user) {
+            scope.user = user.email
+            $rootScope.userName = user.email
+          }
         })
       }
 
