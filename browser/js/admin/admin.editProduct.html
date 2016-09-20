@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <img id="singleProductImg" ng-src={{product.pictureUrl}}>
+        </div>
+        <div id="singleProductInfo" class="col-6">
+            <h1>{{product.title}}</h1>
+            <h5>{{product.information}}</h5>
+            <h6 ng-show="product.availability">This item is currently available!</h6>
+            <h6 ng-show="!product.availability">This item is not currently available.</h6>
+            <h5>{{ product.price | currency }}</h5>
+        </div>
+        <div class="col-12">
+            <p>Categories:<span ng-repeat="category in product.categories"> {{category.type}}</span></p>
+        </div>
+    </div>
+    <div class="row" ng-model="product">
+            <LABEL>Title<input type="text" ng-model="product.title"></LABEL>
+            <LABEL>Picture URL<input type="text" ng-model="product.pictureUrl"></LABEL>
+            <LABEL>Description<input type="text" ng-model="product.information"></LABEL>
+            <button class='btn' ng-click="toggleAvailability()">Toggle Availability</button><br>
+            <LABEL>Price<input type="text" ng-model="product.price"></LABEL>
+            <button class="btn-clear" ng-click="discard()">Discard</button><button ng-click="save()">Save</button>
+    </div>
+    <div class="row" id="reviewsBottom">
+        <div class="col-12">
+            <hr class="style-seven">
+            <h1>Reviews</h1>
+            <div ng-repeat="review in product.reviews">
+                <p><strong>{{review.title}}</strong> &nbsp Score : {{review.score}}</p>
+                <p> by {{review.author}}</p>
+                <p>{{review.comment}}</p>
+            </div>
+        </div>
+    </div>

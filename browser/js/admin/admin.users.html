@@ -1,0 +1,22 @@
+<div class="pull-right" style="width:30%"><label>Search<input type="text" ng-model="search" ></label></div>
+<h1>Users</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+			<th>Orders</th>
+			<th>Make Admin</th>
+			<th>Password Reset</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="user in data|filter:{$: search, id:query}| orderBy:'id'">
+			<td>{{user.id}}</td>
+			<td>{{user.email}}</td>
+			<td><a ui-sref="admin.orders({query: user.id})">view</a></td>
+			<td><a href="" ng-click="makeAdmin(user.id)">Make Admin</a></td>
+			<td><a href="" ng-click="forceReset(user.id)">Password Reset</a></td>
+			<td><button class="btn" ng-click="delete(user.id)">X</button></td>
+	</tr>
+</table>
