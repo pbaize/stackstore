@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state, Socket) {
+app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthService, AUTH_EVENTS, $state, Socket, ChatFactory) {
   return {
     restrict: 'E',
     scope: {},
@@ -30,6 +30,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
       scope.toggleCart = function () {
         CartFactory.fetchAll()
           .then(cart => {
+            ChatFactory.minimizeClientChat()
             scope.cartItems = cart.products
             scope.showCart = !scope.showCart
           })
@@ -93,6 +94,7 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
 
       scope.logout = function () {
         AuthService.logout().then(function () {
+          ChatFactory.hideClientChat()
           $state.go('home')
         })
       }
