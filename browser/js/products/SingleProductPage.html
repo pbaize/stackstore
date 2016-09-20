@@ -9,7 +9,7 @@
             <h6 ng-show="product.product.availability">This item is currently available!</h6>
             <h6 ng-show="!product.product.availability">This item is not currently available.</h6>
             <h5>{{ product.product.price | currency }}</h5>
-            <button ng-click="addToCart()">Add to Cart</button>
+            <button ng-show="product.product.availability" ng-click="addToCart()">Add to Cart</button>
             </div>
             </div>
             <div class="row" id="reviewsBottom">
