@@ -56,6 +56,12 @@ module.exports = function (server) {
       for (var i = 0; i < userStorage.length; i++) {
         if (userStorage[i].userId === socket.id) {
           userStorage[i].chatHistory.push(msgContent)
+          console.log('Recieved Msg - ' + userStorage[i].userName + ': ' + msgContent.message + ' ' + msgContent.timestamp)
+          break
+        } else {
+          if (i === userStorage.length - 1) {
+            console.log('Recieved a client message from non-user.')
+          }
         }
       }
     })
