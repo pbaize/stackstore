@@ -58,7 +58,8 @@ module.exports = function (server) {
             socket.emit('openchat')
             let msgContent = {
               message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
-              user: 'A Hipster'
+              user: 'A Hipster',
+              timestamp: new Date()
             }
             socket.emit('servermessage', msgContent)
             userStorage[i].chatHistory.push(msgContent)

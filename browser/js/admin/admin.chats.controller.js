@@ -2,6 +2,7 @@
 
 app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactory) {
   $scope.allLiveDiscussions = []
+  $scope.currentConversation = []
 
   $scope.fetchChats = function () {
     console.log('ADMIN: Attemptng to authenticate and fetch live chats.')
@@ -19,4 +20,12 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
     console.log(allClients)
     $scope.$evalAsync()
   })
+
+  $scope.loadChat = function (aChat) {
+    $scope.currentConversation = aChat.chatHistory.map(function (a) {
+      return {message: a.message, user: a.user, timestamp: a.timestamp}
+    })
+    console.log($scope.currentConversation)
+    $scope.$evalAsync()
+  }
 })
