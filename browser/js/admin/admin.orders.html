@@ -1,0 +1,39 @@
+<div class="pull-right" style="width:30%"><label>Search<input type="text" ng-model="search" ></label></div>
+<h1>Orders</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>User</th>
+			<th>Status</th>
+			<th>Products Ordered</th>
+			<th>save</th>
+		</tr>
+	</thead>
+	<tr ng-repeat="order in data|filter:{$: search, userId:query}| orderBy:'-id'" ng-form="orderstatus">
+		<td>{{order.id}}</td>
+		<td><a ui-sref="admin.users({query:order.userId})">{{order.userId}}</a></td>
+		<td>
+		<p>{{order.status}}</p>
+		<select ng-model="orderstatus.status">
+            <option value="purchased">purchased</option>
+            <option value="cancelled">cancelled</option>
+            <option value="pre-purchase">pre-purchase</option>
+            <option value="shipped">shipped</option>
+		</select>
+		</td>
+		<td>
+			<table>
+				<tr>
+					<th>id</th>
+					<th>qty</th>
+				</tr>
+				<tr ng-repeat="product in order.products">
+					<td><a ui-sref="admin.products({query:product.id})">{{product.id}}</a></td>
+					<td>{{product.product_order.quantity}}</td>
+				</tr>
+			</table>
+		</td>
+		<td><button class="btn" ng-click="saveOrder(order.id, orderstatus.status)">Save</button></td>
+	</tr>
+</table>

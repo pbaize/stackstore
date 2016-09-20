@@ -1,0 +1,31 @@
+<div id="admin-chats-container">
+    <div id="admin-chats-header" class="row">
+    </div>
+    <div id="admin-chats-sides" class="row">
+        <div id="admin-chats-leftside" class="col-6">
+            <div ng-repeat="chat in allLiveDiscussions">
+                <div class="admin-chat-container">
+                    <h5>Chat #{{$index + 1}}</h5>
+                    <ul>
+                        <li>User: {{chat.userName}}</li>
+                        <li>IP: {{chat.userIP}}</li>
+                        <li>SID: {{chat.userId}}</li>
+                        <li># of Msg's: {{chat.chatHistory.length}}</li>
+                    </ul>
+                    <button ng-click="loadChat(chat)">Go To Chat</button>
+                </div>
+            </div>
+        </div>
+        <div id="admin-chats-rightside" class="col-6">
+            <message ng-repeat="message in currentConversation" message="message"></message>
+        </div>
+    </div>
+    <div id="admin-chats-footer" class="row">
+        <div id="chat-box-admin-entry">
+            <form name="thechat" ng-submit="thechat.$valid && sendAdMessage(msg.message)" novalidate>
+                <input id="chat-admin-entry" class="col-11" ng-model="msg.message" ng-minlength='1' ng-required='true'></input>
+                <button id="chat-admin-submit" class="col-1" type="submit"></button>
+            </form>
+        </div>
+    </div>
+</div>

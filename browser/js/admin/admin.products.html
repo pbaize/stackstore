@@ -1,0 +1,29 @@
+<div class="pull-right" style="width:30%"><label>Search<input type="text" ng-model="search" ></label></div>
+<h1>Products</h1>
+<table style="width: 100%;"">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Product Image</th>
+			<th>Description</th>
+			<th>Categories</th>
+			<th>Availability</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in data|filter:{$: search, id:query}| orderBy:'id'">
+			<td>{{product.id}}</td>
+			<td><img src="{{product.pictureUrl}}" class="max-full-width"></td>
+			<td>{{product.information}}</td>
+			<td><p ng-repeat="cat in product.categories">{{cat.type}}</p></td>
+			<td>{{product.availability}}</td>
+			<td><button class="btn" ng-click="edit(product.id)">edit</button></td>
+			<td><button class="btn" ng-click="delete(product.id)">X</button></td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<button class="btn" ng-click="makeNew()">Add New Product</button>
+</div>

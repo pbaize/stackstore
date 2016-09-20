@@ -9,8 +9,8 @@
             <message ng-repeat="message in conversation" message="message"></message>
         </div>
         <div id="chat-box-entry">
-            <form name="thechat" ng-submit="sendMessage(msg.message)" novalidate>
-                <input id="chat-entry" ng-model="msg.message" required></input>
+            <form name="thechat" ng-submit="thechat.$valid && sendMessage(msg.message)" novalidate>
+                <input id="chat-entry" ng-model="msg.message" ng-minlength='1' ng-required='true'></input>
                 <button id="chat-submit" type="submit"></button>
             </form>
         </div>
