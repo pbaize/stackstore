@@ -18,7 +18,8 @@ module.exports = function (server) {
     userStorage.push({
       userNum: userTotal,
       userId: socketId,
-      userIP: clientIp
+      userIP: clientIp,
+      chatHistory: []
     })
     console.log('Connection #' + userTotal + ' using socket ' + socketId + ' incoming connection from ' + clientIp + '.')
 
@@ -35,10 +36,13 @@ module.exports = function (server) {
         for (var i = 0; i < userStorage.length; i++) {
           if (userStorage[i].userId === socket.id) {
             userStorage[i].userName = username
-            socket.emit('servermessage', {
+            socket.emit('openchat')
+            let msgContent = {
               message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
               user: 'A Hipster'
-            })
+            }
+            socket.emit('servermessage', msgContent)
+            userStorage[i].chatHistory.push(msgContent)
             break
           }
           if (i === userStorage.length - 1) {
@@ -48,8 +52,18 @@ module.exports = function (server) {
       }
     })
 
-    socket.on('chatloaded', function () {
-      socket.emit('openchat')
+    socket.on('clientmessage', function (msgContent) {
+      for (var i = 0; i < userStorage.length; i++) {
+        if (userStorage[i].userId === socket.id) {
+          userStorage[i].chatHistory.push(msgContent)
+          console.log('Recieved Msg - ' + userStorage[i].userName + ': ' + msgContent.message + ' ' + msgContent.timestamp)
+          break
+        } else {
+          if (i === userStorage.length - 1) {
+            console.log('Recieved a client message from non-user.')
+          }
+        }
+      }
     })
   })
 
