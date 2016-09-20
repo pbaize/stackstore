@@ -25,6 +25,10 @@ app.config(function ($stateProvider) {
     resolve: {},
     controller: ($scope, AdminFactory, $stateParams) => {
       const view = 'users'
+      const refresh = () => AdminFactory.getAll(view)
+        .then(data => {
+          $scope.data = data
+        })
       AdminFactory.getAll(view)
         .then(data => {
           console.log(data)
@@ -41,7 +45,7 @@ app.config(function ($stateProvider) {
         return updateUser(id, {passwordReset: true})
       }
       $scope.delete = function (id) {
-        return AdminFactory.deleteOne(view, id)
+        return AdminFactory.deleteOne(view, id).then(() => $scope.$evalAsync(refresh))
       }
     }
   })

@@ -5,7 +5,7 @@ var Products = require('../../../db/models/product.js')
 module.exports = router
 
 router.get('/', function (req, res, next) {
-  Products.findAll()
+  Products.findAll({where: {availability: true}})
     .then(function (products) {
       res.status(200).send(products)
     })
