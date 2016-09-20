@@ -40,6 +40,9 @@ app.config(function ($stateProvider) {
       $scope.forceReset = function (id) {
         return updateUser(id, {passwordReset: true})
       }
+      $scope.delete = function (id) {
+        return AdminFactory.deleteOne(view, id)
+      }
     }
   })
   $stateProvider.state('admin.orders', {
@@ -67,6 +70,11 @@ app.config(function ($stateProvider) {
     resolve: {},
     controller: ($scope, AdminFactory, $stateParams, $state) => {
       const view = 'products'
+      const refresh = () => AdminFactory.getAll(view)
+        .then(data => {
+          console.log(data)
+          $scope.data = data
+        })
       AdminFactory.getAll(view)
         .then(data => {
           console.log(data)
@@ -74,6 +82,16 @@ app.config(function ($stateProvider) {
         })
       $scope.query = $stateParams.query
       $scope.edit = id => $state.go('admin.editProduct', {id: id})
+      $scope.makeNew = () => {
+        AdminFactory.makeProduct()
+          .then(id => {
+            console.log(id)
+            $state.go('admin.editProduct', {id: id})
+          })
+      }
+      $scope.delete = function (id) {
+        return AdminFactory.deleteOne(view, id).then(() => $scope.$evalAsync(refresh))
+      }
     }
   })
   $stateProvider.state('admin.editProduct', {
@@ -119,5 +137,12 @@ app.factory('AdminFactory', function ($http) {
   function getOne (type, id) {
     return $http.get('api/admin/' + type + '/' + id).then(res => res.data)
   }
-  return {checkAdmin, getAll, updateOne, getOne}
+  function deleteOne (type, id) {
+    return $http.delete('api/admin/' + type + '/' + id)
+  }
+  function makeProduct () {
+    return $http.post('api/admin/products', {})
+      .then(res => res.data.id)
+  }
+  return {checkAdmin, getAll, updateOne, getOne, deleteOne, makeProduct}
 })
