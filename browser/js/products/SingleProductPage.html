@@ -6,7 +6,8 @@
         <div class="col-6">
             <h1>{{product.product.title}}</h1>
             <h5>{{product.product.information}}</h5>
-            <h6>{{product.product.availability}}</h6>
+            <h6 ng-show="product.product.availability">This item is currently available!</h6>
+            <h6 ng-show="!product.product.availability">This item is not currently available.</h6>
             <h5>{{ product.product.price | currency }}</h5>
             </div>
             <div class="row">

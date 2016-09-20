@@ -2,24 +2,33 @@
 <order></order>
 <nav class="navbar navbar-static-top">
     <div class="container">
-        <div class="row topnav">
+        <div class="row topnav" id="topNavRow">
+        <div class="col-6" id="userRowStuff">
             <div ng-show="user" class="welcome">
-                <span>Welcome, {{ user.email }}!</span>
+                <span>Welcome, {{ user }}!</span>
                 <a ng-click="logout()">Logout</a>
+                |
+                <a ng-click="settings()">User Settings</a>
             </div>
             <div ng-show="user" class="userSettings">
-                <span>User Settings</span>
+
             </div>
+            </div>
+            <div class="col-6" id="cartRowStuff">
             <!-- <fullstack-logo class="pull-left"></fullstack-logo> -->
             <div class="navgroup pull-right">
-                <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Sign Up</button>
+                <button ng-show="!user" ui-sref="signUp" class="btn btn-outline-inverted login-button">Signup</button>
                 <button ng-show="!user" ui-sref="login" class="btn btn-outline-inverted login-button">Login</button>
-                <button class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
+                <button ng-show="cartItems !== undefined && cartItems.length === 0" class="btn btn-primary" id="cart" ng-click="toggleCart()">cart</button>
+                <button ng-show="cartItems !== undefined && cartItems.length > 0" class="btn btn-primary" id="cart" ng-click="toggleCart()">cart ({{cartItems.length}})</button>
                 <button class="btn btn-primary" id="order" ng-show="user" ng-click="toggleOrder()">Order</button>
             </div>
-            <img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png">
+            </div>
+            <div class="row col-12" id="logoRow">
+            <a ui-sref="home"><img id="largelogo" class="horizontal-align" src="/js/common/directives/navbar/largelogo.png"></a>
+            </div>
         </div>
-        <div class="row lowernav">
+        <div class="row col-12 lowernav" id="lowerNavRow">
             <ul class="nav">
                 <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
                     <div>
