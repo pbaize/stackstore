@@ -9,6 +9,7 @@
 			<th>Categories</th>
 			<th>Availability</th>
 			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,6 +20,10 @@
 			<td><p ng-repeat="cat in product.categories">{{cat.type}}</p></td>
 			<td>{{product.availability}}</td>
 			<td><button class="btn" ng-click="edit(product.id)">edit</button></td>
+			<td><button class="btn" ng-click="delete(product.id)">X</button></td>
 		</tr>
 	</tbody>
 </table>
+<div>
+	<button class="btn" ng-click="makeNew()">Add New Product</button>
+</div>
