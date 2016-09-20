@@ -84,7 +84,3 @@ router.put('/:id/:status', ensureAuthenticated, function (req, res, next) {
       res.send(updatedOrder)
     }).catch(next)
 })
-
-router.get('/test', function (req, res, next) {
-  res.redirect('/')
-})

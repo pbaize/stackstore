@@ -5,75 +5,14 @@
         </div>
     </div>
     <div class="container cart-view center" style="overflow-x: hidden; overflow-y: auto; height: 70%">
-        <div ng-show="checkNow">
-           <!--  <form name="checkoutForm" stripe-form="stripeCallback" style: "font-color:black" data-abide>
-                <div ng-if="processing" us-spinner></div>
-                <fieldset>
-                    <legend>Shipping Information</legend>
-                    <div class="row">
-                        <label class="large-12 columns">Name
-                            <input ng-model="name" type="text" placeholder="Name">
-                        </label>
-                        <label class="large-12 columns">Address
-                            <input ng-model="address" type="text" placeholder="Address">
-                        </label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Payment Information</legend>
-                    <div class="row">
-                        <div class="large-6 columns" ng-class="{error: checkoutForm.number.$invalid}">
-                            <label>Card Information
-                                <input ng-model="number" name="number" payments-format="card" payments-validate="card" placeholder="Card Number" type="text" />
-                            </label>
-                            <small class="error">Invalid card number</small>
-                        </div>
-                        <div class="large-3 columns" ng-class="{error: checkoutForm.expiry.$invalid}">
-                            <label>Expiry
-                                <input ng-model="expiry" name="expiry" payments-format="expiry" payments-validate="expiry" placeholder="Expiry" type="text" />
-                            </label>
-                            <small class="error">Invalid date.</small>
-                        </div>
-                        <div class="large-3 columns" ng-class="{error: checkoutForm.cvc.$invalid}">
-                            <label>CVC
-                                <input ng-model="cvc" name="cvc" payments-format="cvc" payments-validate="cvc" placeholder="CVC" type="text" />
-                            </label>
-                            <small class="error">Invalid CVC.</small>
-                        </div>
-                        <div class="large-12 columns">
-                            <strong>
-                    Amount to pay: {{getTotal()}}
-                </strong>
-                        </div>
-                    </div>
-                </fieldset>
-                <alert ng-if="stripeError" type="'alert'" close="hideAlerts()">
-                    Stripe returned an error: {{stripeError}}
-                </alert>
-                <alert ng-if="stripeToken" close="hideAlerts()">
-                    Stripe successfully acquired! Token: {{stripeToken}}
-                </alert>
-                <div class="clearfix">
-                    <div class="right">
-                        <button class="cancel" ng-click="$dismiss();">Cancel</button>
-                        <button type="submit" ng-click="checkout()" ng-disabled="checkoutForm.$invalid">Place Order</button>
-                    </div>
-                </div> -->
-                <div ng-click="checkout()" >
-                <form action="/api/order/test" >
-                <script src="https://checkout.stripe.com/checkout.js"  class="stripe-button" data-key="pk_test_iHcdgk0DmlLGuXHNmbscSxlf" data-amount="{{getTotal()*100}}" data-name="Hipster & Co." data-shipping-address="true" data-description="Payment Module" data-image="http://s13.postimg.org/z8aclrl1z/largelogo.png" data-locale="auto">
-
-
-                </script>
-                </form>
-                </div>
-        </div>
-        <cart-item ng-show="!checkNow" ng-repeat="item in cartItems" item="item"></cart-item>
+        <cart-item ng-repeat="item in cartItems" item="item"></cart-item>
     </div>
     <div class="container cart-view row col-12" id="price-center">
         <h5>Total Price:  {{ getTotal() | currency}}</h5>
-        <button ng-show="getTotal() > 0 && !checkNow" ng-click="toggleCheckout()">Checking Out</button>
-        <!--   <button ng-show="getTotal() > 0" ng-click="checkout()">Checking Out</button> -->
+        <button ng-show="getTotal() > 0" ng-click="checkout()">Checking Out</button>
     </div>
-
+<!--        <li><a href="#about" data-speed="1000" class="menuLink scroll">About</a></li>
+<li><a href="#docs" data-speed="1000" class="menuLink scroll">Docs</a></li> -->
+<!--<li><a href="#examples" data-speed="1000" class="menuLink scroll">Examples</a></li> -->
+<!-- </div> -->
 </div>
