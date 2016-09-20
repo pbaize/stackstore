@@ -9,7 +9,6 @@ app.config(function ($urlRouterProvider, $locationProvider) {
   // Trigger page refresh when accessing an OAuth route
   $urlRouterProvider.when('/auth/:provider', function () {
     window.location.reload()
-    window.Stripe.setPublishableKey('sk_test_jKdJ95wOa06sd1MNEh2LYp8F')
   })
 })
 
