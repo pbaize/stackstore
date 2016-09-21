@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
     }
   })
     .state('singleProduct', {
-      url: '/products/:id',
+      url: '/product/:id',
       templateUrl: '/js/products/SingleProductPage.html',
       controller: 'ProductCtrl',
       resolve: {
