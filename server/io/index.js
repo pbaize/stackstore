@@ -18,6 +18,8 @@ function findSID (aUser) {
   return 0
 }
 
+// Not even kidding - we can now rickroll and troll.
+
 module.exports = function (server) {
   if (io) return io
 
