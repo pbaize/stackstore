@@ -10,7 +10,9 @@ module.exports = function (app, db) {
   var facebookCredentials = {
     clientID: facebookConfig.clientID,
     clientSecret: facebookConfig.clientSecret,
-    callbackURL: facebookConfig.callbackURL
+    callbackURL: facebookConfig.callbackURL,
+    profileField: ['email'],
+    enableProof: true
   }
 
   var verifyCallback = function (accessToken, refreshToken, profile, done) {
@@ -23,7 +25,7 @@ module.exports = function (app, db) {
         if (user) {
           return user
         } else {
-          console.log(profile)
+          console.log('new user info.........', profile)
           return User.create({
             facebook_id: profile.id,
             email: profile.displayName
