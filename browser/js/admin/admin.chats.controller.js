@@ -36,6 +36,10 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
     }
   })
 
+  $rootScope.socket.on('newuser', function () {
+    $scope.fetchChats()
+  })
+
   $rootScope.socket.on('currentclients', function (allClients) {
     console.log('ADMIN: Recieved all chats.')
     $scope.allLiveDiscussions = allClients
@@ -48,6 +52,7 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
       return {message: a.message, user: a.user, timestamp: a.timestamp}
     })
     $scope.currentSelection.user = aChat.userName
+    $scope.currentSelection.sid = aChat.userId
     $scope.$evalAsync()
   }
 
@@ -56,7 +61,7 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
       console.log('ADMIN: Attempting to authenticate and send message to proper user.')
       ChatFactory.findMyId()
         .then(function (myId) {
-          $rootScope.socket.emit('adminmessage', {id: myId, user: $scope.currentSelection.user, message: {message: message, timestamp: new Date(), user: 'A Hipster'}})
+          $rootScope.socket.emit('adminmessage', {sid: $scope.currentSelection.sid, id: myId, user: $scope.currentSelection.user, message: {message: message, timestamp: new Date(), user: 'A Hipster'}})
           $scope.currentConversation.unshift({message: message, timestamp: new Date(), user: 'You'})
           for (var i = 0; i < $scope.allLiveDiscussions.length; i++) {
             if ($scope.allLiveDiscussions[i].userName === $scope.currentSelection.user) {

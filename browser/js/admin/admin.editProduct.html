@@ -15,12 +15,24 @@
         </div>
     </div>
     <div class="row" ng-model="product">
-            <LABEL>Title<input type="text" ng-model="product.title"></LABEL>
-            <LABEL>Picture URL<input type="text" ng-model="product.pictureUrl"></LABEL>
-            <LABEL>Description<input type="text" ng-model="product.information"></LABEL>
-            <button class='btn' ng-click="toggleAvailability()">Toggle Availability</button><br>
-            <LABEL>Price<input type="text" ng-model="product.price"></LABEL>
-            <button class="btn-clear" ng-click="discard()">Discard</button><button ng-click="save()">Save</button>
+        <label>Title<input type="text" ng-model="product.title"></label>
+        <label>Picture URL<input type="text" ng-model="product.pictureUrl"></label>
+        <label>Description<input type="text" ng-model="product.information"></label>
+        <button class='btn' ng-click="toggleAvailability()">Toggle Availability</button><br>
+        <label>Price<input type="text" ng-model="product.price"></label>
+        <div>
+            <input
+            ng-repeat="category in categories"
+            type="checkbox"
+            name="{{category.type}}"
+            id="{{category.id}}"
+            ng-model="category.checked"
+            ng-change="updateCategories()"
+            >
+            <input ng-model="newCat">
+            <button ng-click="makeCategory()">Add</button>
+        </div>
+        <button class="btn-clear" ng-click="discard()">Discard</button><button ng-click="save()">Save</button>
     </div>
     <div class="row" id="reviewsBottom">
         <div class="col-12">

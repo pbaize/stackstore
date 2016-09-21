@@ -28,7 +28,6 @@ module.exports = function (server) {
   io.on('connection', function (socket) {
     // New Connection
     let authed = false
-    let initialize = false
     userTotal++
     var socketId = socket.id
     var clientIp = socket.request.connection.remoteAddress
@@ -43,28 +42,37 @@ module.exports = function (server) {
 
     // Disconnect
     socket.on('disconnect', function () {
+      let tempUser = ''
       console.log(socket.id + ' disconnected from server.')
       for (var i = 0; i < userStorage.length; i++) {
         if (userStorage[i].userId === socket.id) {
+          tempUser = userStorage[i].userName
           userStorage.splice(i, 1)
           console.log('Clearing user from live connections.')
         }
       }
+      userStorage.forEach(function (aClient) {
+        if (aClient.admin === true) {
+          io.sockets.connected[aClient.userId].emit('newclientmessage', {message: 'Internet Disconnect.', user: tempUser, timestamp: new Date()})
+        }
+      })
     })
 
     // Events
     socket.on('authenticated', function (username) {
-      if (!initialize) {
-        initialize = true
-        console.log(socket.id + ' is user: ' + username)
-        for (var i = 0; i < userStorage.length; i++) {
-          if (userStorage[i].userId === socket.id) {
-            userStorage[i].userName = username
-            break
-          }
-          if (i === userStorage.length - 1) {
-            userStorage[i].userName = 'Session User'
-          }
+      console.log(socket.id + ' is user: ' + username)
+      for (var i = 0; i < userStorage.length; i++) {
+        if (userStorage[i].userId === socket.id) {
+          userStorage[i].userName = username
+          userStorage.forEach(function (aClient) {
+            if (aClient.admin === true) {
+              io.sockets.connected[aClient.userId].emit('newuser')
+            }
+          })
+          break
+        }
+        if (i === userStorage.length - 1) {
+          userStorage[i].userName = 'Session User'
         }
       }
     })
@@ -100,7 +108,7 @@ module.exports = function (server) {
         .then(function (result) {
           if (result) {
             console.log('Approved to send chat message.')
-            let sendingTo = findSID(data.user)
+            let sendingTo = data.sid
             if (!authed) {
               io.sockets.connected[sendingTo].emit('openchat')
               authed = true
@@ -135,10 +143,13 @@ module.exports = function (server) {
             let excludeID = findSID(userTemp)
             let copyStorage = userStorage.slice()
             for (var i = 0; i < copyStorage.length; i++) {
+              if (!copyStorage[i].userName || copyStorage[i].userName.length < 1) {
+                copyStorage.splice(i, 1)
+                console.log('Removed bogus user from connected clients.')
+              }
               if (copyStorage[i].userId === excludeID) {
                 copyStorage.splice(i, 1)
                 console.log('Removed myself from connected clients.')
-                break
               } else {
                 if (i === copyStorage.length - 1) {
                   console.log('Could not find myself in connected clients.')
