@@ -133,9 +133,11 @@ app.config(function ($stateProvider) {
           .then(category => {
             $scope.newCat = ''
             $scope.categories.push(category)
-            $scope.product.categories.push(category)
+            $scope.setcategories.push(category.id)
           })
       }
+      $scope.selectedCategories = product.categories
+      $scope.$scope.updateCategories = function () {}
     }
   })
 })
