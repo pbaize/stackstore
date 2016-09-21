@@ -2,12 +2,15 @@
 
 app.config(function ($stateProvider) {
   $stateProvider.state('viewProducts', {
-    url: '/products',
+    url: '/products/:totes',
     templateUrl: '/js/products/products.html',
     controller: 'ProductsCtrl',
     resolve: {
       allProducts: function (ProductsFactory) {
         return ProductsFactory.fetchAll()
+      },
+      onlyTotes: function ($stateParams) {
+        return $stateParams.totes === 'totes'
       }
     }
   })
@@ -23,8 +26,13 @@ app.config(function ($stateProvider) {
     })
 })
 
-app.controller('ProductsCtrl', function ($scope, allProducts, CartFactory) {
-  $scope.products = allProducts
+app.controller('ProductsCtrl', function ($scope, allProducts, onlyTotes, CartFactory) {
+  $scope.products = allProducts.filter(product => {
+    console.log(product.categories)
+    return onlyTotes
+      ? product.categories.some(category => category.type === 'Totes')
+      : product.categories.every(category => category.type !== 'Totes')
+  })
 })
 
 app.controller('ProductCtrl', function ($scope, product, CartFactory, $rootScope, AuthService) {
