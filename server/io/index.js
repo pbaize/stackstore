@@ -70,7 +70,7 @@ module.exports = function (server) {
     socket.on('clientmessage', function (msgContent) {
       for (var i = 0; i < userStorage.length; i++) {
         if (userStorage[i].userId === socket.id) {
-          userStorage[i].chatHistory.push(msgContent)
+          userStorage[i].chatHistory.unshift(msgContent)
           console.log('Recieved Msg - ' + userStorage[i].userName + ': ' + msgContent.message + ' | ' + msgContent.timestamp)
           userStorage.forEach(function (aClient) {
             if (aClient.admin) {
