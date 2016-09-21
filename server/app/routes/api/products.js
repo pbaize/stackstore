@@ -1,11 +1,12 @@
 'use strict'
 var router = require('express').Router()
 var Products = require('../../../db/models/product.js')
+var Category = require('../../../db/models/category.js')
 // eslint-disable-line new-cap
 module.exports = router
 
 router.get('/', function (req, res, next) {
-  Products.findAll({where: {availability: true}})
+  Products.findAll({where: {availability: true}, include: [Category]})
     .then(function (products) {
       res.status(200).send(products)
     })

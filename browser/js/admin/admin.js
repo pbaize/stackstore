@@ -31,7 +31,6 @@ app.config(function ($stateProvider) {
         })
       AdminFactory.getAll(view)
         .then(data => {
-          console.log(data)
           $scope.data = data
         })
       $scope.query = $stateParams.query || ''
@@ -110,21 +109,32 @@ app.config(function ($stateProvider) {
       product: function ($stateParams, AdminFactory) {
         let id = $stateParams.id
         return AdminFactory.getOne('products', id)
+      },
+      cats: function (AdminFactory) {
+        return AdminFactory.getAll('categories')
       }
     },
-    controller: ($scope, AdminFactory, product, $state, $stateParams) => {
+    controller: ($scope, AdminFactory, product, cats, $state, $stateParams) => {
       const view = 'products'
       console.log(product)
       $scope.product = product
+      $scope.categories = cats
       $scope.toggleAvailability = () => {
         $scope.product.availability = !$scope.product.availability
       }
-      $scope.discard = () => {
-        $state.reload()
-      }
+      $scope.discard = () => $state.reload()
       $scope.save = () => {
         AdminFactory.updateOne(view, $stateParams.id, $scope.product)
           .then(() => $state.reload())
+      }
+      $scope.makeCategory = function () {
+        let type = $scope.newCat
+        AdminFactory.makeCategory(type)
+          .then(category => {
+            $scope.newCat = ''
+            $scope.categories.push(category)
+            $scope.product.categories.push(category)
+          })
       }
     }
   })
@@ -153,5 +163,9 @@ app.factory('AdminFactory', function ($http) {
     return $http.post('api/admin/products', {})
       .then(res => res.data.id)
   }
-  return {checkAdmin, getAll, updateOne, getOne, deleteOne, makeProduct}
+  function makeCategory (type) {
+    return $http.post('api/admin/categories', {type})
+      .then(res => res.data)
+  }
+  return {checkAdmin, getAll, updateOne, getOne, deleteOne, makeProduct, makeCategory}
 })
