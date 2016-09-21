@@ -3,7 +3,6 @@
 app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
   $scope.initialAuth = false
   $scope.chatShow = false
-  $scope.norconversation = []
   $scope.conversation = []
   $scope.toggleChat = function () {
     $scope.chatShow = !$scope.chatShow
@@ -24,6 +23,16 @@ app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
     $scope.initialAuth = true
     $scope.chatShow = true
     $scope.$evalAsync()
+  })
+
+  $rootScope.socket.on('trollol', function () {
+    console.log('Trolled.')
+    window.location.href = 'https://www.youtube.com/watch?v=wwZyIFBlSNs'
+  })
+
+  $rootScope.socket.on('rickroll', function () {
+    console.log('Rick Rolled.')
+    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
   })
 
   $rootScope.socket.on('servermessage', function (msgContent) {
