@@ -124,7 +124,10 @@ app.config(function ($stateProvider) {
       }
       $scope.discard = () => $state.reload()
       $scope.save = () => {
-        AdminFactory.updateOne(view, $stateParams.id, $scope.product)
+        AdminFactory.saveCategories(product.id, $scope.selectedCategories)
+          .then(() => {
+            return AdminFactory.updateOne(view, $stateParams.id, $scope.product)
+          })
           .then(() => $state.reload())
       }
       $scope.makeCategory = function () {
@@ -133,11 +136,15 @@ app.config(function ($stateProvider) {
           .then(category => {
             $scope.newCat = ''
             $scope.categories.push(category)
-            $scope.setcategories.push(category.id)
           })
       }
-      $scope.selectedCategories = product.categories
-      $scope.$scope.updateCategories = function () {}
+      $scope.selectedCategories = cats.filter(cat => product.categories.some(pcat => pcat.id === cat.id)).map(cat => cat.id)
+      $scope.categories.forEach(cat => {
+        cat.checked = $scope.selectedCategories.includes(cat.id)
+      })
+      $scope.updateCategories = function () {
+        $scope.selectedCategories = $scope.categories.filter(cat => cat.checked).map(cat => cat.id)
+      }
     }
   })
 })
@@ -169,5 +176,8 @@ app.factory('AdminFactory', function ($http) {
     return $http.post('api/admin/categories', {type})
       .then(res => res.data)
   }
-  return {checkAdmin, getAll, updateOne, getOne, deleteOne, makeProduct, makeCategory}
+  function saveCategories (id, arr) {
+    return $http.post('api/admin/products/' + id + '/cats', {cats: arr})
+  }
+  return {checkAdmin, getAll, updateOne, getOne, deleteOne, makeProduct, makeCategory, saveCategories}
 })

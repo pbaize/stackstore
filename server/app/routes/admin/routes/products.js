@@ -7,7 +7,13 @@ module.exports = router
 
 router.get('/', m.getAll(db, {include: [cat]}))
 router.get('/:id', m.getOne(db, [rev, cat]))
-router.put('/:id', m.updateOne(db, [cat]))
+router.post('/:id/cats', (req, res, next) => {
+  db.findOne({where: {id: req.params.id}})
+    .then(prod => prod.setCategories(req.body.cats))
+    .then(() => res.send(200))
+    .catch(console.log)
+})
+router.put('/:id', m.updateOne(db))
 router.delete('/:id', m.deleteOne(db))
 router.post('/', (req, res, next) => {
   db.create({price: 0, availability: false})
