@@ -22,9 +22,9 @@ app.directive('navbar', function ($rootScope, CartFactory, OrderFactory, AuthSer
 
       scope.items = [
         { label: 'Home', state: 'home' },
-        { label: 'Products', state: 'viewProducts' },
-        { label: 'Category', state: 'category' }
-      // { label: 'Members Only', state: 'membersOnly', auth: true }
+        // { label: 'All Products', state: 'viewProducts' },
+        { label: 'Totes', state: 'viewProducts({totes:"totes"})', totes: 'totes' },
+        { label: 'Not Totes', state: 'viewProducts({totes:"not"})', totes: 'not' }
       ]
       scope.showCart = false
       scope.toggleCart = function () {
