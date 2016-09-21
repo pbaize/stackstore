@@ -143,6 +143,10 @@ module.exports = function (server) {
             let excludeID = findSID(userTemp)
             let copyStorage = userStorage.slice()
             for (var i = 0; i < copyStorage.length; i++) {
+              if (!copyStorage[i].userName || copyStorage[i].userName.length < 1) {
+                copyStorage.splice(i, 1)
+                console.log('Removed bogus user from connected clients.')
+              }
               if (copyStorage[i].userId === excludeID) {
                 copyStorage.splice(i, 1)
                 console.log('Removed myself from connected clients.')
