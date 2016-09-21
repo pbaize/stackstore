@@ -150,7 +150,6 @@ module.exports = function (server) {
               if (copyStorage[i].userId === excludeID) {
                 copyStorage.splice(i, 1)
                 console.log('Removed myself from connected clients.')
-                break
               } else {
                 if (i === copyStorage.length - 1) {
                   console.log('Could not find myself in connected clients.')
