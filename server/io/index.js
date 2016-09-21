@@ -143,9 +143,9 @@ module.exports = function (server) {
             let excludeID = findSID(userTemp)
             let copyStorage = userStorage.slice()
             for (var i = 0; i < copyStorage.length; i++) {
-              if (copyStorage[i].userId === excludeID || !copyStorage[i].userName) {
+              if (copyStorage[i].userId === excludeID) {
                 copyStorage.splice(i, 1)
-                console.log('Removed myself from connected clients or session user.')
+                console.log('Removed myself from connected clients.')
                 break
               } else {
                 if (i === copyStorage.length - 1) {
