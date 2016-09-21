@@ -29,5 +29,8 @@ module.exports = db.define('order', {
   },
   shipAddress: {
     type: Sequelize.STRING
+  },
+  token: {
+    type: Sequelize.STRING
   }
 })

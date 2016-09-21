@@ -45,6 +45,7 @@ router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
   // expecting incoming req.body.productsData = [{id: 1,quantity: 3},{id:2,qunatitiy:4},{}..........]
   console.log('getting into post order route........')
   let settingProductAndQuantity = []
+  let token = req.body.token
   let productsData = req.body.productsData.sort((a, b) => a.id - b.id) // sort all elements id in acending order
   let newProductID = productsData.map(data => data.id)
   let newProductQuantity = productsData.map(data => data.quantity)
@@ -55,7 +56,7 @@ router.post('/newOrder', ensureAuthenticated, function (req, res, next) {
       let totalPrice = products.reduce(function (pre, cur, i) {
         return pre + cur.price * newProductQuantity[i]
       }, 0)
-      return Order.create({totalPrice})
+      return Order.create({totalPrice: totalPrice, token: token})
     })
     .then(function (order) { // this operation will set the newly created order to client order product and quantity
       productsData.forEach(function (product) {
