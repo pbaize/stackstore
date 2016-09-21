@@ -23,8 +23,10 @@ module.exports = function (app, db) {
         if (user) {
           return user
         } else {
+          console.log(profile)
           return User.create({
-            facebook_id: profile.id
+            facebook_id: profile.id,
+            email: profile.displayName
           })
         }
       })

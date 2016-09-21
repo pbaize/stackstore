@@ -24,8 +24,10 @@ module.exports = function (app, db) {
         if (user) {
           return user
         } else {
+          console.log('google profile', profile)
           return User.create({
-            google_id: profile.id
+            google_id: profile.id,
+            email: profile.emails[0].value
           })
         }
       })
