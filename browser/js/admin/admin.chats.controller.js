@@ -18,9 +18,9 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
   $rootScope.socket.on('newclientmessage', function (msgContent) {
     for (var i = 0; i < $scope.allLiveDiscussions.length; i++) {
       if ($scope.allLiveDiscussions[i].userName === msgContent.user) {
-        $scope.allLiveDiscussions[i].chatHistory.push(msgContent)
+        $scope.allLiveDiscussions[i].chatHistory.unshift(msgContent)
         if ($scope.currentSelection.user === msgContent.user) {
-          $scope.currentConversation.push(msgContent)
+          $scope.currentConversation.unshift(msgContent)
         }
         console.log('ADMIN: Found chat of new message and added message to said chat.')
         $scope.$evalAsync()
@@ -56,11 +56,11 @@ app.controller('AdminChatCtrl', function ($scope, $rootScope, $state, ChatFactor
       console.log('ADMIN: Attempting to authenticate and send message to proper user.')
       ChatFactory.findMyId()
         .then(function (myId) {
-          $rootScope.socket.emit('adminmessage', {id: myId, user: $scope.currentSelection.user, message: {message: message, timestamp: new Date(), user: 'Another Hipster'}})
-          $scope.currentConversation.push({message: message, timestamp: new Date(), user: 'You'})
+          $rootScope.socket.emit('adminmessage', {id: myId, user: $scope.currentSelection.user, message: {message: message, timestamp: new Date(), user: 'A Hipster'}})
+          $scope.currentConversation.unshift({message: message, timestamp: new Date(), user: 'You'})
           for (var i = 0; i < $scope.allLiveDiscussions.length; i++) {
             if ($scope.allLiveDiscussions[i].userName === $scope.currentSelection.user) {
-              $scope.allLiveDiscussions[i].chatHistory.push({message: message, timestamp: new Date(), user: 'You'})
+              $scope.allLiveDiscussions[i].chatHistory.unshift({message: message, timestamp: new Date(), user: 'You'})
               break
             }
           }
