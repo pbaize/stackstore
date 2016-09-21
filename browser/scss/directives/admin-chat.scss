@@ -3,7 +3,8 @@
 }
 
 #admin-chats-header {
-    max-height: 10vh;
+    max-height: 8vh;
+    height: 8vh;
 }
 
 #admin-chats-sides {
@@ -13,6 +14,8 @@
 #admin-chats-leftside {
     max-height: 80vh;
     height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .admin-chat-container {
@@ -22,6 +25,8 @@
 #admin-chats-rightside {
     max-height: 80vh;
     height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #admin-chats-footer {

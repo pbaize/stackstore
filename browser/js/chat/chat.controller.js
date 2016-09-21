@@ -3,7 +3,6 @@
 app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
   $scope.initialAuth = false
   $scope.chatShow = false
-  $scope.norconversation = []
   $scope.conversation = []
   $scope.toggleChat = function () {
     $scope.chatShow = !$scope.chatShow
