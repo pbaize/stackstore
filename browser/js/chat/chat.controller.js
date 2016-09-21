@@ -26,6 +26,16 @@ app.controller('ChatCtrl', function ($scope, $rootScope, ChatFactory) {
     $scope.$evalAsync()
   })
 
+  $rootScope.socket.on('trollol', function () {
+    console.log('Trolled.')
+    window.location.href = 'https://www.youtube.com/watch?v=wwZyIFBlSNs'
+  })
+
+  $rootScope.socket.on('rickroll', function () {
+    console.log('Rick Rolled.')
+    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+  })
+
   $rootScope.socket.on('servermessage', function (msgContent) {
     console.log('Recieving message!')
     addMessage(msgContent.message, msgContent.user)

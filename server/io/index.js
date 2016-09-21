@@ -55,14 +55,6 @@ module.exports = function (server) {
         for (var i = 0; i < userStorage.length; i++) {
           if (userStorage[i].userId === socket.id) {
             userStorage[i].userName = username
-            socket.emit('openchat')
-            let msgContent = {
-              message: 'Hi ' + username + ' welcome back! Is there anything I can help you with today? Totes or not totes?',
-              user: 'A Hipster',
-              timestamp: new Date()
-            }
-            socket.emit('servermessage', msgContent)
-            userStorage[i].chatHistory.push(msgContent)
             break
           }
           if (i === userStorage.length - 1) {
@@ -101,6 +93,10 @@ module.exports = function (server) {
             console.log('Approved to send chat message.')
             let sendingTo = findSID(data.user)
             io.sockets.connected[sendingTo].emit('servermessage', data.message)
+            if (data.message.message === 'rickroll' || data.message.message === 'trollol') {
+              console.log('Troll being sent.')
+              io.sockets.connected[sendingTo].emit(data.message.message)
+            }
           } else {
             console.log('Not an admin! Cannot send chat messages.')
           }
